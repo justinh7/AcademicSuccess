@@ -1,6 +1,6 @@
 /*********************************************
 Cascading Style Sheets (CSS) Style Definitions
-Composed by Hanson on December 4, 2016.
+Composed by Hanson Hanson.
 *********************************************/
 
 html, body {
@@ -247,26 +247,6 @@ Other Style Definitions
 }
 
 /* Used in CreateAccount, EditAccount, SignIn, and Profile */
-.createColumn1, .viewColumn1 {
-    text-align: right;
-    background-color: #FFE4C4;   /* Bisque */
-    white-space: nowrap;  /* Disallow line break */
-}
-
-/* Used in CreateAccount and EditAccount */
-.createColumn2, .viewColumn2 {
-    text-align: left;
-    background-color: #FFEBCD;   /* Blanched Almond  */
-    
-}
-td1 {
-padding-left: 5px;
-padding-right: 5px;
-padding-top: 5px;
-padding-bottom: 5px;
-background-color: #FFE4C4;
-}
-/* Used in CreateAccount, EditAccount, SignIn, and Profile */
 .accountColumn1, .signInColumn1, .profileColumn1 {
     text-align: right;
     background-color: #FFE4C4;   /* Bisque */
@@ -322,12 +302,6 @@ background-color: #FFE4C4;
 .previewImage {
     width: auto;
     height: 36px;
-}
-
-/* Used in publicVideo List */
-.thumbnailImage {
-    height: auto;
-    width: 80px;
 }
 
 /* Used in DisplayFile */
@@ -458,6 +432,7 @@ reference <p:confirmDialog id="confirmDialogBox" ...> in Profile.xhtml
 
 /* Override PrimeFaces style definitions for the Dialog component */
 .ui-dialog, .ui-dialog-content, .ui-dialog-buttonpane {
+    color: #800000; /* Maroon */
     background-color: #FDF5E6;   /* OldLace */
 }
 
@@ -516,4 +491,3 @@ if content overflows an element's box.
 .ui-button {
     margin-top: 10px !important;
 }
-

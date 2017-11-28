@@ -8,19 +8,19 @@ This CSS file was created by http://www.menucool.com
 
 #sliderFrame 
 {
-    width:500px;
+    width:600px;   /* Change this value with the image width you are using */
     margin:0 auto; /*center-aligned*/
 }
 
 #slider, #slider .sliderInner {
-    width:500px;height:313px; /* Must be the same size as the slider images */
+    width:600px;height:333px;  /* Change to image width and height you are using */
     border-radius:3px;
 }
 
 #slider {
     background-color:white;
     position:relative;
-    margin:0 auto; /*center-aligned*/
+    margin:0 auto; /* center-aligned */
     transform: translate3d(0,0,0);
     box-shadow: 0px 1px 5px #999999;
 }
@@ -42,7 +42,7 @@ This CSS file was created by http://www.menucool.com
     position:absolute;
     width:100%;
     height:auto;
-    padding:10px 0;/* 10px will increase the height.*/
+    padding:10px 0;  /* 10px will increase the height.*/
     left:0px;
     bottom:0px;top:auto;
     overflow:hidden;
@@ -61,22 +61,24 @@ This CSS file was created by http://www.menucool.com
 
 /* ------ built-in navigation bullets wrapper ------*/
 #slider .navBulletsWrapper  {
-    top:320px;
+    top:340px;   /* Change this value to image height you are using + 7px */
     text-align:center;
     background:none;
     position:relative;
     z-index:3;
 }
 
-/* each bullet. The URL is inserted for our project */
+/* each bullet */
 #slider .navBulletsWrapper div 
 {
     width:11px; height:11px;
-    font-size:0;color:White;/*hide the index number in the bullet element*/
+    font-size:0;color:White;  /*hide the index number in the bullet element*/
+    
+    /* Insert the URL for your project to display a bullet image */
     background:transparent url("#{resource['images:bullet.png']}") no-repeat 0 0;
     display:inline-block; *display:inline; zoom:1;
     overflow:hidden;cursor:pointer;
-    margin:0 6px;/* set distance between each bullet*/
+    margin:0 6px;  /* set distance between each bullet*/
 }
 
 #slider .navBulletsWrapper .active {background-position:0 -11px;}
