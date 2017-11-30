@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "User")
 @XmlRootElement
+
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
     , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
@@ -43,79 +44,109 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByZipcode", query = "SELECT u FROM User u WHERE u.zipcode = :zipcode")
     , @NamedQuery(name = "User.findBySecurityQuestion", query = "SELECT u FROM User u WHERE u.securityQuestion = :securityQuestion")
     , @NamedQuery(name = "User.findBySecurityAnswer", query = "SELECT u FROM User u WHERE u.securityAnswer = :securityAnswer")
-    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
+    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
+})
+
 public class User implements Serializable {
 
+    // User was a reserved keyword in SQL in 1999, but not any more.
+
+    /*
+    ========================================================
+    Instance variables representing the attributes (columns)
+    of the User table in the CloudDriveDB database.
+    ========================================================
+     */
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 32)
     @Column(name = "username")
     private String username;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 32)
     @Column(name = "password")
     private String password;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 32)
     @Column(name = "first_name")
     private String firstName;
+
     @Size(max = 32)
     @Column(name = "middle_name")
     private String middleName;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 32)
     @Column(name = "last_name")
     private String lastName;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "address1")
     private String address1;
+
     @Size(max = 128)
     @Column(name = "address2")
     private String address2;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "city")
     private String city;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "state")
     private String state;
+    // state was a reserved keyword in SQL in 1999, but not any more.
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "zipcode")
     private String zipcode;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "security_question")
     private int securityQuestion;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "security_answer")
     private String securityAnswer;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "email")
     private String email;
+
     @OneToMany(mappedBy = "userId")
     private Collection<UserPhoto> userPhotoCollection;
 
+    /*
+    ===============================================================
+    Class constructors for instantiating a User entity object to
+    represent a row in the User table in the CloudDriveDB database.
+    ===============================================================
+     */
     public User() {
     }
 
@@ -138,6 +169,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    /*
+    ======================================================
+    Getter and Setter methods for the attributes (columns)
+    of the User table in the CloudDriveDB database.
+    ======================================================
+     */
     public Integer getId() {
         return id;
     }
@@ -250,6 +287,8 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    // The @XmlTransient annotation is used to resolve potential name collisions
+    // between a JavaBean property name and a field name.
     @XmlTransient
     public Collection<UserPhoto> getUserPhotoCollection() {
         return userPhotoCollection;
@@ -259,6 +298,14 @@ public class User implements Serializable {
         this.userPhotoCollection = userPhotoCollection;
     }
 
+    /*
+    ================
+    Instance Methods
+    ================
+     */
+    /**
+     * @return Generates and returns a hash code value for the object with id
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -266,6 +313,12 @@ public class User implements Serializable {
         return hash;
     }
 
+    /**
+     * Checks if the User object identified by 'object' is the same as the User object identified by 'id'
+     *
+     * @param object The User object identified by 'object'
+     * @return True if the User 'object' and 'id' are the same; otherwise, return False
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -279,9 +332,14 @@ public class User implements Serializable {
         return true;
     }
 
+    /**
+     * @return the String representation of a User id
+     */
     @Override
     public String toString() {
-        return "com.mycompany.EntityBeans.User[ id=" + id + " ]";
+
+        // Returned String is the one shown in the p:dataTable under the User Id column in UserFiles.xhtml.
+        return id.toString();
     }
-    
+
 }
