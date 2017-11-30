@@ -8,6 +8,12 @@ package com.mycompany.APIInteraction;
  *
  * @author Justin
  */
-public class HighSchoolDropOutRate {
+public class HighSchoolDropOutRate extends BaseRate{
+
+
+
+    public HighSchoolDropOutRate(String characteristic, int count, double percentage, String race, String sex, int year) {
+        super(characteristic, count, percentage, race, sex, year);
+    }
     
 }

@@ -21,12 +21,7 @@ import org.primefaces.util.ArrayUtils;
  */
 public class APIDataController {
     
-    private List<CollegeEnrollmentRate> collegeEnrollmentRates;
-    private List<CollegeGraduationRate> collegeGraduationRates;
-    private List<HighSchoolDropOutRate> highSchoolDropOutRates;
-    private List<ImprisonmentRate> imprisonmentRates;
-    private List<LaborForceParticipationRate> laborForceParticipationRates;
-    private List<RateOfDisconnectedYouth> ratesOfDisconnectedYouth;
+    private List<BaseRate> baseRateList;
     
     String apiKey = "01YNnqMQGsdwOSSRpoVUSgY4At2lMDvoled038Gc";
     
@@ -39,105 +34,77 @@ public class APIDataController {
     
     private String statusMessage = "";
     
+    private String characteristicFilter;
+    private String raceFilter;
+    private String sexFilter;
+    private String minYearFilter;
+    private String maxYearFilter;
+    
     
     public String getHighSchoolDropOutRates() {
 
         statusMessage = "";
-
-        JSONArray jsonArray;
-        highSchoolDropOutRates = new ArrayList<HighSchoolDropOutRate>();
-        
-        
-        
+        return getDataHelper(urlHighSchoolDropoutRates);
+    }
+    
+    
+    
+    private String getDataHelper(String baseUrl) {
+         JSONArray jsonArray;
+         baseRateList = new ArrayList<>();
         try {
-            for (int pageNumber = 1; pageNumber < 3; pageNumber++) {
+            for (int pageNumber = 1; pageNumber < 2; pageNumber++) {
 
 
-                String tmdbMovieSearchWebServiceUrl = "";
+                String requestUrl = baseUrl + "?api_key=" + apiKey + "&per_page=500&page=" + pageNumber;
 
                 // Obtain the JSON file containing the movie search results at the given page number
-                String movieSearchResultsJsonData = readUrlContent(tmdbMovieSearchWebServiceUrl);
+                String jsonData = readUrlContent(requestUrl);
 
                 // The returned JSON data comes as a dictionary. Enclose it within an array.
-                movieSearchResultsJsonData = "[" + movieSearchResultsJsonData + "]";
+                jsonData = "[" + jsonData + "]";
 
                 // Instantiate a JSON Array object from the JSON data obtained as an array
-                jsonArray = new JSONArray(movieSearchResultsJsonData);
+                jsonArray = new JSONArray(jsonData);
 
                 /*
                 jsonArray.getJSONObject(0), object at index 0, gives the dictionary returned in the JSON file.
                 getJSONArray("results") gets the list of movies given under the KEY "results" of the dictionary.
                  */
-                JSONArray jsonArrayFoundMovies = jsonArray.getJSONObject(0).getJSONArray("results");
+                JSONArray jsonArrayResources = jsonArray.getJSONObject(0).getJSONArray("resources");
 
                 int index = 0;
 
-                if (jsonArrayFoundMovies.length() > index) {
+                if (jsonArrayResources.length() > index) {
 
-                    while (jsonArrayFoundMovies.length() > index) {
+                    while (jsonArrayResources.length() > index) {
 
                         // Get the JSONObject at index
-                        JSONObject jsonObject = jsonArrayFoundMovies.getJSONObject(index);
-
-                        /*
-                        ======== JSON Data Optional Processing ======== 
+                        JSONObject jsonObject = jsonArrayResources.getJSONObject(index);
                         
-                        optBoolean(String key, boolean defaultValue) 
-                            Obtain the Boolean value for the given "key" if a value exists; otherwise, use the defaultValue.
-                        
-                        optDouble(String key, double defaultValue) 
-                            Obtain the Double value for the given "key", or use the defaultValue if there is no such key or if its value is not a number.
-
-                        optInt(String key, int defaultValue) 
-                            Obtain the Int value for the given "key", or use the defaultValue if there is no such key or if its value is not a number.
-          
-                        optLong(String key, long defaultValue) 
-                            Obtain the Long value for the given "key", or use the defaultValue if there is no such key or if its value is not a number.
-                        
-                        optString(String key, String defaultValue) 
-                            Obtain the String value for the given "key" if a value exists; otherwise, use the defaultValue.
-                        
-                        ============================
-                        Movie Poster Image File Name
-                        ============================
-                         */
-                        String posterFileName = jsonObject.optString("poster_path", "");
-                        if (posterFileName.equals("")) {
-                            // Skip the movie with no poster image provided
-                            index++;
-                            continue;
+                        String characteristic = jsonObject.optString("Characteristic", "");
+                        String count = jsonObject.optString("Count", "");   
+                        String percentage;
+                        if (baseUrl == null ? urlImprisonmentRates == null : baseUrl.equals(urlImprisonmentRates)) {
+                            String ratePerHundredThousand = jsonObject.optString("Rate per 100,000", "");
+                            percentage = Integer.parseInt(ratePerHundredThousand) / 100000.00 + ""; 
                         }
-
-                        /*
-                        =========================
-                        Movie Overview (Synopsis)
-                        =========================
-                         */
-                        String overview = jsonObject.optString("overview", "");
-                        if (overview.equals("")) {
-                            overview = "No movie overview is provided!";
+                        else {
+                            percentage = jsonObject.optString("Percentage", "");
                         }
-
-                        /*
-                        ==================
-                        Movie Release Date
-                        ==================
-                         */
-                        String releaseDate = jsonObject.optString("release_date", "");
-                        if (releaseDate.equals("")) {
-                            releaseDate = "No Release Date";
-                        }
-
-
-
                         
-
-                        /*
-                        ================================================================
-                        Create a new SearchedMovie object dressed up with its Attributes
-                        ================================================================
-                         */
+                        String race = jsonObject.optString("Race/Ethnicity", "");
+                        String sex = jsonObject.optString("Sex", "");
+                        String year = jsonObject.optString("Year", "");
                         
+                        int countAsInt = Integer.parseInt(count);
+                        double percentageAsDouble = Double.parseDouble(percentage);
+                        int yearAsInt = Integer.parseInt(year);
+                        
+                        BaseRate rate = 
+                                new HighSchoolDropOutRate(characteristic, countAsInt, percentageAsDouble, race, sex, yearAsInt);
+
+                        baseRateList.add(rate);
                         index++;
                         
                     }
