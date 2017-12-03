@@ -14,49 +14,121 @@ import java.util.logging.Logger;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
 import org.primefaces.util.ArrayUtils;
+import java.io.IOException;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Named;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.io.OutputStream; 
 
 /**
  *
  * @author Justin
  */
-public class APIDataController {
-    
+@Named(value = "apiDataController")
+@SessionScoped
+public class APIDataController implements Serializable {
+
     private List<BaseRate> baseRateList;
-    
+
     String apiKey = "01YNnqMQGsdwOSSRpoVUSgY4At2lMDvoled038Gc";
-    
+
     private final String urlHighSchoolDropoutRates = "https://api.ed.gov/data/mbk-highschool-dropout";
     private final String urlCollegeEnrollmentRates = "https://api.ed.gov/data/mbk-college-enrollment";
     private final String urlCollegeGraduationRates = "https://api.ed.gov/data/mbk-bachelors-or-higher";
     private final String urlRatesOfDisconnectedYouth = "https://api.ed.gov/data/mbk-disconnected-youth";
     private final String urlLaborForceParticipationRates = "https://api.ed.gov/data/mbk-labor-force-participation";
     private final String urlImprisonmentRates = "https://api.ed.gov/data/mbk-imprisonment";
-    
+
     private String statusMessage = "";
-    
+
     private String characteristicFilter;
     private String raceFilter;
     private String sexFilter;
     private String minYearFilter;
     private String maxYearFilter;
-    
-    
-    public String getHighSchoolDropOutRates() {
+
+    public String highSchoolDropOutRates() {
 
         statusMessage = "";
         return getDataHelper(urlHighSchoolDropoutRates);
     }
     
+    public String collegeEnrollmentRates() {
+        statusMessage = "";
+        return getDataHelper(urlCollegeEnrollmentRates);
+    }
+    
+    public String collegeGraduationRates() {
+        statusMessage = "";
+        return getDataHelper(urlCollegeGraduationRates);
+    }
+    
+    public String ratesOfDisconnectedYouth() {
+        statusMessage = "";
+        return getDataHelper(urlRatesOfDisconnectedYouth);
+    }
+    
+    public String laborForceParticipationRates() {
+        statusMessage = "";
+        return getDataHelper(urlLaborForceParticipationRates);
+    }
+    
+    public String imprisonmentRates() {
+        statusMessage = "";
+        return getDataHelper(urlImprisonmentRates);
+    }
     
     
+
     private String getDataHelper(String baseUrl) {
-         JSONArray jsonArray;
-         baseRateList = new ArrayList<>();
+        JSONArray jsonArray;
+        baseRateList = new ArrayList<>();
+        
+        //Trial Filters
+        //characteristicFilter = "Total";
+        minYearFilter = "2002";
+        maxYearFilter = "2008";
+        sexFilter = "Males";
+        raceFilter = "Hispanic";
+        
         try {
             for (int pageNumber = 1; pageNumber < 2; pageNumber++) {
 
-
-                String requestUrl = baseUrl + "?api_key=" + apiKey + "&per_page=500&page=" + pageNumber;
+                String requestUrl = baseUrl + "?api_key=" + apiKey + "&per_page=1000&page=" + pageNumber;
+                
+                if (characteristicFilter != null && !characteristicFilter.equals("")) {
+                    requestUrl += "&Characteristic=" + characteristicFilter;
+                }
+                
+                if (raceFilter != null && !raceFilter.equals("")) {
+                    requestUrl += "&Race%2fEthnicity%20=" + raceFilter;
+                }
+                
+                if (sexFilter != null && !sexFilter.equals("")) {
+                    requestUrl += "&Sex=" + sexFilter;
+                }
+                
+                if (minYearFilter != null && !minYearFilter.equals("") && maxYearFilter != null && !maxYearFilter.equals("")) {
+                    for (int year = Integer.parseInt(minYearFilter); year <= Integer.parseInt(maxYearFilter); year++){
+                        requestUrl += "&Year=" + year;
+                    }
+                    
+                }
 
                 // Obtain the JSON file containing the movie search results at the given page number
                 String jsonData = readUrlContent(requestUrl);
@@ -81,32 +153,31 @@ public class APIDataController {
 
                         // Get the JSONObject at index
                         JSONObject jsonObject = jsonArrayResources.getJSONObject(index);
-                        
+
                         String characteristic = jsonObject.optString("Characteristic", "");
-                        String count = jsonObject.optString("Count", "");   
+                        String count = jsonObject.optString("Count", "");
                         String percentage;
                         if (baseUrl == null ? urlImprisonmentRates == null : baseUrl.equals(urlImprisonmentRates)) {
                             String ratePerHundredThousand = jsonObject.optString("Rate per 100,000", "");
-                            percentage = Integer.parseInt(ratePerHundredThousand) / 100000.00 + ""; 
-                        }
-                        else {
+                            percentage = Integer.parseInt(ratePerHundredThousand) / 100000.00 + "";
+                        } else {
                             percentage = jsonObject.optString("Percentage", "");
                         }
-                        
+
                         String race = jsonObject.optString("Race/Ethnicity", "");
                         String sex = jsonObject.optString("Sex", "");
                         String year = jsonObject.optString("Year", "");
-                        
+
                         int countAsInt = Integer.parseInt(count);
                         double percentageAsDouble = Double.parseDouble(percentage);
                         int yearAsInt = Integer.parseInt(year);
-                        
-                        BaseRate rate = 
-                                new HighSchoolDropOutRate(characteristic, countAsInt, percentageAsDouble, race, sex, yearAsInt);
+
+                        BaseRate rate
+                                = new BaseRate(characteristic, countAsInt, percentageAsDouble, race, sex, yearAsInt);
 
                         baseRateList.add(rate);
                         index++;
-                        
+
                     }
 
                 } else {
@@ -117,11 +188,39 @@ public class APIDataController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
-        return "MovieSearchResults?faces-redirect=true";
+
+        return "index.xhtml?faces-redirect=true";
     }
-    
+
     public String readUrlContent(String webServiceURL) throws Exception {
+
+        TrustManager[] trustAllCerts = new TrustManager[]{
+            new X509TrustManager() {
+
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+
+                public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) {
+                    //No need to implement.
+                }
+
+                public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
+                    //No need to implement.
+                }
+            }
+        };
+
+// Install the all-trusting trust manager
+        try {
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
         /*
         reader is an object reference pointing to an object instantiated from the BufferedReader class.
         Currently, it is "null" pointing to nothing.
@@ -172,6 +271,5 @@ public class APIDataController {
             }
         }
     }
-    
-    
+
 }
