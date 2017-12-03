@@ -13,10 +13,10 @@ public class BaseRate {
     private String race;
     private String sex;
     private int year;
-    private int count;
+    private double count;
     private double percentage;
     
-    public BaseRate(String characteristic, int count, double percentage, String race, String sex, int year) {
+    public BaseRate(String characteristic, double count, double percentage, String race, String sex, int year) {
         this.characteristic = characteristic;
         this.count = count;
         this.percentage = percentage;
@@ -35,11 +35,11 @@ public class BaseRate {
         this.characteristic = characteristic;
     }
 
-    public int getCount() {
+    public double getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(double count) {
         this.count = count;
     }
 

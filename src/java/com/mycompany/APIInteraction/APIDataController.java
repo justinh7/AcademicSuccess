@@ -99,6 +99,16 @@ public class APIDataController implements Serializable {
         JSONArray jsonArray;
         baseRateList = new ArrayList<>();
         
+        String raceTitle = "Race%2fethnicity";
+        String sexTitle = "Sex";
+        if (baseUrl.equals(urlHighSchoolDropoutRates)) {
+            raceTitle = "Race%2fEthnicity%20";
+        }
+        else if (baseUrl.equals(urlRatesOfDisconnectedYouth)) {
+            raceTitle = "Race%2fethnicity%20";
+            sexTitle = "Sex ";
+        }
+        
         //Trial Filters
         //characteristicFilter = "Total";
         minYearFilter = "2002";
@@ -116,11 +126,11 @@ public class APIDataController implements Serializable {
                 }
                 
                 if (raceFilter != null && !raceFilter.equals("")) {
-                    requestUrl += "&Race%2fEthnicity%20=" + raceFilter;
+                    requestUrl += "&" + raceTitle + "=" + raceFilter;
                 }
                 
                 if (sexFilter != null && !sexFilter.equals("")) {
-                    requestUrl += "&Sex=" + sexFilter;
+                    requestUrl += "&" + sexTitle + "=" + sexFilter;
                 }
                 
                 if (minYearFilter != null && !minYearFilter.equals("") && maxYearFilter != null && !maxYearFilter.equals("")) {
@@ -168,12 +178,12 @@ public class APIDataController implements Serializable {
                         String sex = jsonObject.optString("Sex", "");
                         String year = jsonObject.optString("Year", "");
 
-                        int countAsInt = Integer.parseInt(count);
+                        double countAsDouble = Double.parseDouble(count);
                         double percentageAsDouble = Double.parseDouble(percentage);
                         int yearAsInt = Integer.parseInt(year);
 
                         BaseRate rate
-                                = new BaseRate(characteristic, countAsInt, percentageAsDouble, race, sex, yearAsInt);
+                                = new BaseRate(characteristic, countAsDouble, percentageAsDouble, race, sex, yearAsInt);
 
                         baseRateList.add(rate);
                         index++;
