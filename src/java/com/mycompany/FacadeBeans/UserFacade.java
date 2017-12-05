@@ -1,5 +1,5 @@
 /*
- * Created by Khoa Le on 2017.11.30  * 
+ * Created by Khoa Le on 2017.12.04  * 
  * Copyright © 2017 Khoa Le. All rights reserved. * 
  */
 package com.mycompany.FacadeBeans;
@@ -42,7 +42,7 @@ public class UserFacade extends AbstractFacade<User> {
         
         // The find method is inherited from the parent AbstractFacade class
         return em.find(User.class, id);
-    }
+}
 
     /**
      * @param username is the username attribute (column) value of the user
