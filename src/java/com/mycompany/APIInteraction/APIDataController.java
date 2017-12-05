@@ -62,40 +62,97 @@ public class APIDataController implements Serializable {
     private String minYearFilter;
     private String maxYearFilter;
 
-    public String highSchoolDropOutRates() {
+    public List<BaseRate> getBaseRateList() {
+        return baseRateList;
+    }
+
+    public void setBaseRateList(List<BaseRate> baseRateList) {
+        this.baseRateList = baseRateList;
+    }
+
+    public String getStatusMessage() {
+        return statusMessage;
+    }
+
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
+    }
+
+    public String getCharacteristicFilter() {
+        return characteristicFilter;
+    }
+
+    public void setCharacteristicFilter(String characteristicFilter) {
+        this.characteristicFilter = characteristicFilter;
+    }
+
+    public String getRaceFilter() {
+        return raceFilter;
+    }
+
+    public void setRaceFilter(String raceFilter) {
+        this.raceFilter = raceFilter;
+    }
+
+    public String getSexFilter() {
+        return sexFilter;
+    }
+
+    public void setSexFilter(String sexFilter) {
+        this.sexFilter = sexFilter;
+    }
+
+    public String getMinYearFilter() {
+        return minYearFilter;
+    }
+
+    public void setMinYearFilter(String minYearFilter) {
+        this.minYearFilter = minYearFilter;
+    }
+
+    public String getMaxYearFilter() {
+        return maxYearFilter;
+    }
+
+    public void setMaxYearFilter(String maxYearFilter) {
+        this.maxYearFilter = maxYearFilter;
+    }
+    
+
+    public void highSchoolDropOutRates() {
 
         statusMessage = "";
-        return getDataHelper(urlHighSchoolDropoutRates);
+        getDataHelper(urlHighSchoolDropoutRates);
     }
     
-    public String collegeEnrollmentRates() {
+    public void collegeEnrollmentRates() {
         statusMessage = "";
-        return getDataHelper(urlCollegeEnrollmentRates);
+        getDataHelper(urlCollegeEnrollmentRates);
     }
     
-    public String collegeGraduationRates() {
+    public void collegeGraduationRates() {
         statusMessage = "";
-        return getDataHelper(urlCollegeGraduationRates);
+        getDataHelper(urlCollegeGraduationRates);
     }
     
-    public String ratesOfDisconnectedYouth() {
+    public void ratesOfDisconnectedYouth() {
         statusMessage = "";
-        return getDataHelper(urlRatesOfDisconnectedYouth);
+        getDataHelper(urlRatesOfDisconnectedYouth);
     }
     
-    public String laborForceParticipationRates() {
+    public void laborForceParticipationRates() {
         statusMessage = "";
-        return getDataHelper(urlLaborForceParticipationRates);
+        getDataHelper(urlLaborForceParticipationRates);
     }
     
-    public String imprisonmentRates() {
+    public void imprisonmentRates() {
         statusMessage = "";
-        return getDataHelper(urlImprisonmentRates);
+        getDataHelper(urlImprisonmentRates);
     }
     
     
 
-    private String getDataHelper(String baseUrl) {
+    private void getDataHelper(String baseUrl) {
         JSONArray jsonArray;
         baseRateList = new ArrayList<>();
         
@@ -199,7 +256,6 @@ public class APIDataController implements Serializable {
             ex.printStackTrace();
         }
 
-        return "index.xhtml?faces-redirect=true";
     }
 
     public String readUrlContent(String webServiceURL) throws Exception {
