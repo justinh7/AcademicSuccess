@@ -1,5 +1,5 @@
 /*
- * Created by Khoa Le on 2017.11.30  * 
+ * Created by Khoa Le on 2017.12.04  * 
  * Copyright © 2017 Khoa Le. All rights reserved. * 
  */
 package com.mycompany.FacadeBeans;
@@ -43,7 +43,7 @@ public class UserPhotoFacade extends AbstractFacade<UserPhoto> {
         return (List<UserPhoto>) em.createNamedQuery("UserPhoto.findPhotosByUserID")
                 .setParameter("userId", userID)
                 .getResultList();
-    }
+}
 
     /* The following methods are inherited from the parent AbstractFacade class:
     
