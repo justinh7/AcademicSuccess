@@ -249,14 +249,14 @@ Other Style Definitions
 /* Used in CreateAccount, EditAccount, SignIn, and Profile */
 .accountColumn1, .signInColumn1, .profileColumn1 {
     text-align: right;
-    background-color: #FFE4C4;   /* Bisque */
+    background-color: #D29D64;   /* Bisque */
     white-space: nowrap;  /* Disallow line break */
 }
 
 /* Used in CreateAccount and EditAccount */
 .accountColumn2, .signInColumn2, .profileColumn2 {
     text-align: left;
-    background-color: #FFEBCD;   /* Blanched Almond  */
+    background-color: #D29D64;   /* Blanched Almond  */
     white-space: nowrap;  /* Disallow line break */
 }
 
@@ -498,4 +498,17 @@ a:link{
 
 a:visited{
     color:white
+}
+
+#Border
+{
+    background-color: #C6A06C; 
+    width: 650px;
+    height: 360px;
+    margin: 0 auto;
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;   
+    padding-bottom: 15px;
+    align-content: center;
 }
