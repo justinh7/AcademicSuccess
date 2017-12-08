@@ -503,12 +503,18 @@ a:visited{
 #Border
 {
     background-color: #C6A06C; 
-    width: 650px;
-    height: 360px;
+    width: 520px;
+    height: 400px;
     margin: 0 auto;
     padding-top: 15px;
     padding-left: 15px;
-    padding-right: 15px;   
+    padding-right: 10px;   
     padding-bottom: 15px;
+}
+
+.ui-galleria
+{
+    text-align: center;
     align-content: center;
+        margin:0 auto; /*center-aligned*/
 }
