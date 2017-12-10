@@ -34,6 +34,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.OutputStream; 
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -61,6 +62,43 @@ public class APIDataController implements Serializable {
     private String sexFilter;
     private String minYearFilter;
     private String maxYearFilter;
+    
+    private String dataType = "College Enrollment Rates";
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Init Starting");
+        switch (dataType) {
+                case "High School Dropout Rates":
+                    highSchoolDropOutRates();
+                    break;
+                case "College Enrollment Rates":
+                    collegeEnrollmentRates();
+                    break;
+                case "College Graduation Rates":
+                    collegeGraduationRates();
+                    break;
+                case "Rates Disconnected Youth":
+                    ratesOfDisconnectedYouth();
+                    break;
+                case "Labor Force Participation Rates":
+                    laborForceParticipationRates();
+                    break;
+                case "Imprisonment Rates":
+                    imprisonmentRates();
+                    break;
+                default:
+                    break;
+            }
+    }
+    
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
 
     public List<BaseRate> getBaseRateList() {
         return baseRateList;
@@ -149,8 +187,6 @@ public class APIDataController implements Serializable {
         statusMessage = "";
         getDataHelper(urlImprisonmentRates);
     }
-    
-    
 
     private void getDataHelper(String baseUrl) {
         JSONArray jsonArray;
@@ -163,15 +199,15 @@ public class APIDataController implements Serializable {
         }
         else if (baseUrl.equals(urlRatesOfDisconnectedYouth)) {
             raceTitle = "Race%2fethnicity%20";
-            sexTitle = "Sex ";
+            sexTitle = "Sex%20";
         }
         
         //Trial Filters
         //characteristicFilter = "Total";
-        minYearFilter = "2002";
-        maxYearFilter = "2008";
-        sexFilter = "Males";
-        raceFilter = "Hispanic";
+        //minYearFilter = "2002";
+        //maxYearFilter = "2008";
+        //sexFilter = "Males";
+        //raceFilter = "Hispanic";
         
         try {
             for (int pageNumber = 1; pageNumber < 2; pageNumber++) {
@@ -230,10 +266,26 @@ public class APIDataController implements Serializable {
                         } else {
                             percentage = jsonObject.optString("Percentage", "");
                         }
-
-                        String race = jsonObject.optString("Race/Ethnicity", "");
-                        String sex = jsonObject.optString("Sex", "");
-                        String year = jsonObject.optString("Year", "");
+                        
+                        String race = "";
+                        String sex = "";
+                        String year = "";
+                        if (baseUrl.equals(urlHighSchoolDropoutRates)) {
+                            race = jsonObject.optString("Race/Ethnicity ", "");
+                            sex = jsonObject.optString("Sex", "");
+                            year = jsonObject.optString("Year", "");
+                        }
+                        else if (baseUrl.equals(urlRatesOfDisconnectedYouth)) {
+                            race = jsonObject.optString("Race/ethnicity ", "");
+                            sex = jsonObject.optString("Sex ", "");
+                            year = jsonObject.optString("Year", "");
+                        }
+                        else {
+                            race = jsonObject.optString("Race/ethnicity", "");
+                            sex = jsonObject.optString("Sex", "");
+                            year = jsonObject.optString("Year", "");
+                        }
+                        
 
                         double countAsDouble = Double.parseDouble(count);
                         double percentageAsDouble = Double.parseDouble(percentage);
