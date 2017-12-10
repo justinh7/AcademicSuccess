@@ -24,71 +24,163 @@ Copyright © 2017 Khoa Le. All rights reserved.
         <!-- Create the content for this page below -->
         <ui:define name="editableContent">
 
-            <h:form id="AcademicGraphForm">
+            <h:form id="AcademicGraphForm" >
 
                 <!-- Type of Dataset -->
                 <p:growl id="msg" showDetail="true" escape="false" />
-                <h3 style="margin-top:0; color:white;">Type of Dataset</h3>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                    <p:outputLabel for="" value="" />
-                    <p:selectOneMenu id="dataset" value="">
-                        <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
-                        <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
-                        <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
-                        <f:selectItem itemLabel="Rates Disconnected Youth" itemValue="Rates Disconnected Youth" />
-                        <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
-                        <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
-                    </p:selectOneMenu>
-                </h:panelGrid>
+                <div align="center">
 
 
-                <!-- Type of Graph -->
-                <h3 style="margin-top:0; color:white;">Type of Graph</h3>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                    <p:outputLabel for="" value="" />
-                    <p:selectOneMenu id="graph" value="">
-                        <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
-                        <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
-                        <f:selectItem itemLabel="Area Graph" itemValue="Area Graph" />
-                    </p:selectOneMenu>
-                </h:panelGrid>
+                    <p:accordionPanel style="width: 1000px;" id="accordianPanel" >
+                        <p:tab title="Dataset Selection 1" >
+                            <h:panelGrid columns="2" >
+                                <p:outputLabel for="" value="Type of Dataset" />
+                                <p:selectOneMenu id="dataset1" value="">
+                                    <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
+                                    <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
+                                    <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
+                                    <f:selectItem itemLabel="Rates Disconnected Youth" itemValue="Rates Disconnected Youth" />
+                                    <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
+                                    <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
+                                </p:selectOneMenu>
 
-                <!-- Sex -->
-                <h3 style="margin-top:0; color:white;">Sex</h3>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                    <p:outputLabel for="" value="" />
-                    <p:selectOneMenu id="sex" value="">
-                        <f:selectItem itemLabel="All" itemValue="All" />
-                        <f:selectItem itemLabel="Male" itemValue="Male" />
-                        <f:selectItem itemLabel="Female" itemValue="Female" />
-                    </p:selectOneMenu>
-                </h:panelGrid>
 
-                <!-- Race -->
-                <h3 style="margin-top:0; color:white;">Race</h3>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                    <p:outputLabel for="" value="" />
-                    <p:selectOneMenu id="race" value="">
-                        <f:selectItem itemLabel="All" itemValue="All" />
-                        <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
-                        <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
-                        <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
-                        <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
-                        <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
-                        <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
-                        <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
-                    </p:selectOneMenu>
-                </h:panelGrid>
+                                <p:outputLabel for="" value="Type of Graph" />
+                                <p:selectOneMenu id="graph1" value="">
+                                    <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
+                                    <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
+                                    <f:selectItem itemLabel="Area Graph" itemValue="Area Graph" />
+                                </p:selectOneMenu>
 
-                <!--Year Range Slider -->
-                <h3 style="color:white;">Range Slider</h3>
+                                <p:outputLabel for="" value="Sex" />
+                                <p:selectOneMenu id="sex1" value="">
+                                    <f:selectItem itemLabel="All" itemValue="All" />
+                                    <f:selectItem itemLabel="Male" itemValue="Male" />
+                                    <f:selectItem itemLabel="Female" itemValue="Female" />
+                                </p:selectOneMenu>
 
-                <h:panelGrid columns="1" style="margin-bottom: 10px">
-                    <h:outputText style="color:white;" id="displayRange" value="Between 2000 and 2015" />
-                    <p:slider for="txt6,txt7" minValue = "2000" maxValue = "2015" display="displayRange" style="width: 400px; color:white;" range="true" displayTemplate="Between {min} and {max}" />
-                </h:panelGrid>
-                <h:inputHidden id="txt6" value="2000" />
-                <h:inputHidden id="txt7" value="2015" />
+                                <p:outputLabel for="" value="Race" />
+                                <p:selectOneMenu id="race1" value="">
+                                    <f:selectItem itemLabel="All" itemValue="All" />
+                                    <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
+                                    <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
+                                    <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
+                                    <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
+                                    <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
+                                    <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
+                                    <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
+                                </p:selectOneMenu>
+
+
+                                <h:outputText id="displayRange1" value="Between 2000 and 2015" style="padding-right:10px"/>
+                                <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2015" display="displayRange1" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                <h:inputHidden id="txt61" value="2000" />
+                                <h:inputHidden id="txt71" value="2015" />
+                            </h:panelGrid>
+
+                        </p:tab>
+
+                        <p:tab title="Dataset Selection 2" >
+                            <h:panelGrid columns="2" >
+                                <p:outputLabel for="" value="Type of Dataset" />
+                                <p:selectOneMenu id="dataset2" value="">
+                                    <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
+                                    <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
+                                    <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
+                                    <f:selectItem itemLabel="Rates Disconnected Youth" itemValue="Rates Disconnected Youth" />
+                                    <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
+                                    <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel for="" value="Type of Graph" />
+                                <p:selectOneMenu id="graph2" value="">
+                                    <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
+                                    <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
+                                    <f:selectItem itemLabel="Area Graph" itemValue="Area Graph" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="" value="Sex" />
+                                <p:selectOneMenu id="sex2" value="">
+                                    <f:selectItem itemLabel="All" itemValue="All" />
+                                    <f:selectItem itemLabel="Male" itemValue="Male" />
+                                    <f:selectItem itemLabel="Female" itemValue="Female" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="" value="Race" />
+                                <p:selectOneMenu id="race2" value="">
+                                    <f:selectItem itemLabel="All" itemValue="All" />
+                                    <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
+                                    <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
+                                    <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
+                                    <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
+                                    <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
+                                    <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
+                                    <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
+                                </p:selectOneMenu>
+
+
+                                <h:outputText id="displayRange2" value="Between 2000 and 2015" style="padding-right:10px"/>
+                                <p:slider for="txt62,txt72" minValue = "2000" maxValue = "2015" display="displayRange2" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                <h:inputHidden id="txt62" value="2000" />
+                                <h:inputHidden id="txt72" value="2015" />
+                            </h:panelGrid>
+
+                        </p:tab>
+
+                        <p:tab title="Dataset Selection 3" >
+                            <h:panelGrid columns="2" >
+                                <p:outputLabel for="" value="Type of Dataset" />
+                                <p:selectOneMenu id="dataset3" value="">
+                                    <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
+                                    <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
+                                    <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
+                                    <f:selectItem itemLabel="Rates Disconnected Youth" itemValue="Rates Disconnected Youth" />
+                                    <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
+                                    <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel for="" value="Type of Graph" />
+                                <p:selectOneMenu id="graph3" value="">
+                                    <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
+                                    <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
+                                    <f:selectItem itemLabel="Area Graph" itemValue="Area Graph" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="" value="Sex" />
+                                <p:selectOneMenu id="sex3" value="">
+                                    <f:selectItem itemLabel="All" itemValue="All" />
+                                    <f:selectItem itemLabel="Male" itemValue="Male" />
+                                    <f:selectItem itemLabel="Female" itemValue="Female" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="" value="Race" />
+                                <p:selectOneMenu id="race3" value="">
+                                    <f:selectItem itemLabel="All" itemValue="All" />
+                                    <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
+                                    <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
+                                    <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
+                                    <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
+                                    <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
+                                    <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
+                                    <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
+                                </p:selectOneMenu>
+
+
+                                <h:outputText id="displayRange3" value="Between 2000 and 2015" style="padding-right:10px"/>
+                                <p:slider for="txt63,txt73" minValue = "2000" maxValue = "2015" display="displayRange3" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                <h:inputHidden id="txt63" value="2000" />
+                                <h:inputHidden id="txt73" value="2015" />
+                            </h:panelGrid>
+
+                        </p:tab>
+
+                    </p:accordionPanel>
+
+                    <p:commandButton id="submit" value="Display Graph" 
+                                     ajax="false" icon="ui-icon-calculator" />
+                </div>
 
             </h:form>
         </ui:define>
