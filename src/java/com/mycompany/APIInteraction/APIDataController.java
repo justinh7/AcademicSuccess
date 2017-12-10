@@ -117,7 +117,7 @@ public class APIDataController implements Serializable {
     public void setMaxYearFilter(String maxYearFilter) {
         this.maxYearFilter = maxYearFilter;
     }
-    
+        
 
     public void highSchoolDropOutRates() {
 
