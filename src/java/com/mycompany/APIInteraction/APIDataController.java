@@ -34,6 +34,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.OutputStream; 
+import javax.annotation.PostConstruct;
 
 /**
  *
@@ -61,6 +62,43 @@ public class APIDataController implements Serializable {
     private String sexFilter;
     private String minYearFilter;
     private String maxYearFilter;
+    
+    private String dataType = "College Enrollment Rates";
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Init Starting");
+        switch (dataType) {
+                case "High School Dropout Rates":
+                    highSchoolDropOutRates();
+                    break;
+                case "College Enrollment Rates":
+                    collegeEnrollmentRates();
+                    break;
+                case "College Graduation Rates":
+                    collegeGraduationRates();
+                    break;
+                case "Rates Disconnected Youth":
+                    ratesOfDisconnectedYouth();
+                    break;
+                case "Labor Force Participation Rates":
+                    laborForceParticipationRates();
+                    break;
+                case "Imprisonment Rates":
+                    imprisonmentRates();
+                    break;
+                default:
+                    break;
+            }
+    }
+    
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
 
     public List<BaseRate> getBaseRateList() {
         return baseRateList;
@@ -149,8 +187,6 @@ public class APIDataController implements Serializable {
         statusMessage = "";
         getDataHelper(urlImprisonmentRates);
     }
-    
-    
 
     private void getDataHelper(String baseUrl) {
         JSONArray jsonArray;
