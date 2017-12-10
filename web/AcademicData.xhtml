@@ -46,7 +46,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                             VT Building Image
                             =================
                             -->
-                            <p:column>
+                            <p:column sortBy="#{baseRateList.year}">
                                 <f:facet name="header">
                                     <h:outputText value="Year" styleClass="facetHeader" />
                                 </f:facet>
@@ -58,7 +58,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                             VT Building Name
                             ================
                             -->
-                            <p:column>
+                            <p:column sortBy="#{baseRateList.race}">
                                 <f:facet name="header">
                                     <h:outputText value="Race/Ethnicity" styleClass="facetHeader" />
                                 </f:facet>
@@ -70,7 +70,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                             VT Building Abbreviation
                             ========================
                             -->
-                            <p:column>
+                            <p:column sortBy="#{baseRateList.sex}">
                                 <f:facet name="header">
                                     <h:outputText value="Sex" styleClass="facetHeader" />
                                 </f:facet>
@@ -78,7 +78,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                             </p:column>
                             
                             
-                            <p:column>
+                            <p:column sortBy="#{baseRateList.count}">
                                 <f:facet name="header">
                                     <h:outputText value="Count" styleClass="facetHeader" />
                                 </f:facet>
@@ -90,7 +90,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                             VT Building Category
                             ====================
                             -->
-                            <p:column>
+                            <p:column sortBy="#{baseRateList.percentage}">
                                 <f:facet name="header">
                                     <h:outputText value="Percentage" styleClass="facetHeader" />
                                 </f:facet>
@@ -99,21 +99,18 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
                             <!-- PrimeFaces data table's footer -->
                             <f:facet name="footer">
-                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                    <p:outputLabel for="" value="" />
-                                    <p:selectOneMenu id="dataset" value="#{APIDataController.dataType}">
-                                        <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
-                                        <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
-                                        <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
-                                        <f:selectItem itemLabel="Rates Disconnected Youth" itemValue="Rates Disconnected Youth" />
-                                        <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
-                                        <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
-                                    </p:selectOneMenu>
-                                </h:panelGrid>
+                               <p:selectOneMenu id="dataset" value="#{apiDataController.dataType}">
+                                    <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
+                                    <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
+                                    <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
+                                    <f:selectItem itemLabel="Rates Disconnected Youth" itemValue="Rates Disconnected Youth" />
+                                    <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
+                                    <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
+                                </p:selectOneMenu>
                                 
                                 <!-- PrimeFaces button 'Refresh' -->
                                 <p:commandButton id="refreshButton" icon="ui-icon-refresh" value = "Refresh" styleClass="commandButton"
-                                                 action="#{apiDataController.init()}" update="DataListForm"/> 
+                                                 action="#{apiDataController.init()}" update="DataListForm" ajax="false"/> 
                             </f:facet>
 
                         </p:dataTable>

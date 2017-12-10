@@ -67,7 +67,7 @@ public class APIDataController implements Serializable {
 
     @PostConstruct
     public void init() {
-        System.out.println("Init Starting");
+        //System.out.println(dataType);
         switch (dataType) {
                 case "High School Dropout Rates":
                     highSchoolDropOutRates();
@@ -290,7 +290,13 @@ public class APIDataController implements Serializable {
                         double countAsDouble = Double.parseDouble(count);
                         double percentageAsDouble = Double.parseDouble(percentage);
                         int yearAsInt = Integer.parseInt(year);
-
+                        
+                        if (race.length() == 0) {
+                            race += "All";
+                        }
+                        if (sex.length() == 0) {
+                            sex += "All";
+                        }
                         BaseRate rate
                                 = new BaseRate(characteristic, countAsDouble, percentageAsDouble, race, sex, yearAsInt);
 
