@@ -38,7 +38,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
 
                                 <p:outputLabel for="" value="Type of Graph" />
-                                <p:selectOneMenu id="graph" value="">
+                                <p:selectOneMenu id="graph" value="${tableController.graphType}">
                                     <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
                                     <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
                                     <f:selectItem itemLabel="Area Graph" itemValue="Area Graph" />
@@ -55,7 +55,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                         <p:tab title="Dataset Selection 1" >
                             <h:panelGrid columns="2" >
                                 <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset1" value="">
+                                <p:selectOneMenu id="dataset1" value="${tableController.dataset}">
                                     <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
                                     <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
                                     <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
@@ -65,14 +65,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex1" value="">
+                                <p:selectOneMenu id="sex1" value="${tableController.sex}">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="Male" itemValue="Male" />
                                     <f:selectItem itemLabel="Female" itemValue="Female" />
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race1" value="">
+                                <p:selectOneMenu id="race1" value="${tableController.race}">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
                                     <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
