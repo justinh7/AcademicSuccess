@@ -12,7 +12,7 @@ import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
  
 @ManagedBean
-public class BubbleGraphController implements Serializable {
+public class AreaGraphController implements Serializable {
  
     private LineChartModel areaModel;
  

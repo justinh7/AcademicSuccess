@@ -5,6 +5,7 @@
 package com.mycompany.controllers;
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
@@ -19,8 +20,55 @@ import org.primefaces.model.chart.LineChartSeries;
  */
 public class LineGraphController implements Serializable  {
    private LineChartModel lineModel1;
-    private LineChartModel lineModel2;
-     
+    //private LineChartModel lineModel2;
+       String title = "";
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public ArrayList<Double> getPercentages() {
+        return percentages;
+    }
+
+    public void setPercentages(ArrayList<Double> percentages) {
+        this.percentages = percentages;
+    }
+
+    public int getMinYear() {
+        return minYear;
+    }
+
+    public void setMinYear(int minYear) {
+        this.minYear = minYear;
+    }
+
+    public int getMaxYear() {
+        return maxYear;
+    }
+
+    public void setMaxYear(int maxYear) {
+        this.maxYear = maxYear;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
+    
+    ArrayList<Double> percentages;
+    int minYear= 2000;
+    int maxYear = 2015;
+    String gender = ""; 
+    
     @PostConstruct
     public void init() {
         createLineModels();
@@ -29,20 +77,23 @@ public class LineGraphController implements Serializable  {
     public LineChartModel getLineModel1() {
         return lineModel1;
     }
- 
+ /*
     public LineChartModel getLineModel2() {
         return lineModel2;
     }
-     
+   */  
     private void createLineModels() {
         lineModel1 = initLinearModel();
-        lineModel1.setTitle("Linear Chart");
+        lineModel1.setTitle(title);
         lineModel1.setLegendPosition("e");
+        lineModel1.setShowPointLabels(true);
+        lineModel1.getAxes().put(AxisType.X, new CategoryAxis("Years"));
         Axis yAxis = lineModel1.getAxis(AxisType.Y);
         yAxis.setMin(0);
-        yAxis.setMax(10);
+        yAxis.setMax(100);
+        yAxis.setLabel("Percentage");
          
-        lineModel2 = initCategoryModel();
+        /*lineModel2 = initCategoryModel();
         lineModel2.setTitle("Category Chart");
         lineModel2.setLegendPosition("e");
         lineModel2.setShowPointLabels(true);
@@ -50,21 +101,19 @@ public class LineGraphController implements Serializable  {
         yAxis = lineModel2.getAxis(AxisType.Y);
         yAxis.setLabel("Births");
         yAxis.setMin(0);
-        yAxis.setMax(200);
+        yAxis.setMax(200);*/
     }
      
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
  
         LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Series 1");
- 
-        series1.set(1, 2);
-        series1.set(2, 1);
-        series1.set(3, 3);
-        series1.set(4, 6);
-        series1.set(5, 8);
- 
+        for(int i = minYear;i<maxYear;i++)
+        {
+            series1.set(String.valueOf(i),percentages.get(i));
+        }
+        model.addSeries(series1);
+        /*
         LineChartSeries series2 = new LineChartSeries();
         series2.setLabel("Series 2");
  
@@ -73,13 +122,13 @@ public class LineGraphController implements Serializable  {
         series2.set(3, 2);
         series2.set(4, 7);
         series2.set(5, 9);
- 
+ */
         model.addSeries(series1);
-        model.addSeries(series2);
+       // model.addSeries(series2);
          
         return model;
     }
-     
+     /*
     private LineChartModel initCategoryModel() {
         LineChartModel model = new LineChartModel();
  
@@ -104,5 +153,5 @@ public class LineGraphController implements Serializable  {
          
         return model;
     }
-  
+  */
 }
