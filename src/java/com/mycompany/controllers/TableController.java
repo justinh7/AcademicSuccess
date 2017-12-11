@@ -131,7 +131,24 @@ public class TableController implements Serializable {
     AreaGraphController AC = new AreaGraphController();
 
     BarChartModel barModel;
+
+    public LineChartModel getLineModel() {
+        return lineModel;
+    }
+
+    public void setLineModel(LineChartModel lineModel) {
+        this.lineModel = lineModel;
+    }
+
+    public LineChartModel getAreaModel() {
+        return areaModel;
+    }
+
+    public void setAreaModel(LineChartModel areaModel) {
+        this.areaModel = areaModel;
+    }
     LineChartModel lineModel;
+    LineChartModel areaModel;
    
     
 
@@ -200,7 +217,7 @@ public class TableController implements Serializable {
         AC.setGender3(sex3);
         AC.setTitle(dataset);
         AC.init();
-        lineModel = AC.getAreaModel();
+        areaModel = AC.getAreaModel();
     }
     
 
@@ -370,13 +387,28 @@ public class TableController implements Serializable {
     public void selectGraphType() {
         switch (graphType) {
             case "Bar Graph":
+                barModel = null;
+                lineModel = null;
+                areaModel = null;
                 generateBar();
+                areaModel = null;
+                lineModel = null;
                 break;
             case "Line Graph":
+                barModel = null;
+                lineModel = null;
+                areaModel = null;
                 generateLine();
+                barModel = null;
+                areaModel = null;
                 break;
             case "Area Graph":
+                barModel = null;
+                lineModel = null;
+                areaModel = null;
                 generateArea();
+                barModel = null;
+                lineModel = null;
                 break;
 
         }

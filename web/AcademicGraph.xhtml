@@ -35,6 +35,13 @@ Copyright © 2017 Khoa Le. All rights reserved.
                     <c:if test="${tableController.barModel != null}">
                         <p:chart type="bar" model="#{tableController.barModel}" style="height:500px; width:800px"/>
                     </c:if>
+                    <c:if test="${tableController.lineModel != null}">
+                        <p:chart type="line" model="#{tableController.lineModel}" style="height:500px; width:800px"/>
+                    </c:if>
+                    
+                    <c:if test="${tableController.areaModel != null}">
+                        <p:chart type="line" model="#{tableController.areaModel}" style="height:500px; width:800px"/>
+                    </c:if>
 
                     <p:accordionPanel style="width: 1000px;" id="accordianPanel" >
 
