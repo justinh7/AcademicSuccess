@@ -27,7 +27,7 @@ public class BarGraphController implements Serializable {
     
     ArrayList<Double> percentages;
     int minYear= 2000;
-    int maxYear = 2015;
+    int maxYear = 2014;
     String gender = "";
 
     public String getTitle() {
