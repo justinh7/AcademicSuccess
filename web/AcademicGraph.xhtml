@@ -28,34 +28,39 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
                 <!-- Type of Dataset -->
                 <p:growl id="msg" showDetail="true" escape="false" />
-                <div align="center">
 
+
+
+                <div align="center">
+                    <c:if test="${tableController.barModel != null}">
+                        <p:chart type="bar" model="#{tableController.barModel}" style="height:500px; width:800px"/>
+                    </c:if>
 
                     <p:accordionPanel style="width: 1000px;" id="accordianPanel" >
-                        
+
                         <p:tab title="Overall Settings" >
                             <h:panelGrid columns="2" >
 
 
                                 <p:outputLabel for="" value="Type of Graph" />
-                                <p:selectOneMenu id="graph" value="">
+                                <p:selectOneMenu id="graph" value="${tableController.graphType}">
                                     <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
                                     <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
                                     <f:selectItem itemLabel="Area Graph" itemValue="Area Graph" />
                                 </p:selectOneMenu>
 
-                                <h:outputText id="displayRange1" value="Between 2000 and 2015" style="padding-right:10px"/>
-                                <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2015" display="displayRange1" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
-                                <h:inputHidden id="txt61" value="2000" />
-                                <h:inputHidden id="txt71" value="2015" />
+                                <h:outputText id="displayRange1" value="Between 2000 and 2014" style="padding-right:10px"/>
+                                <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2014" display="displayRange1" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                <h:inputHidden id="txt61" value="${tableController.minYear}" />
+                                <h:inputHidden id="txt71" value="${tableController.maxYear}" />
                             </h:panelGrid>
 
                         </p:tab>
-                        
+
                         <p:tab title="Dataset Selection 1" >
                             <h:panelGrid columns="2" >
                                 <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset1" value="">
+                                <p:selectOneMenu id="dataset1" value="${tableController.dataset}">
                                     <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
                                     <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
                                     <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
@@ -65,14 +70,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex1" value="">
+                                <p:selectOneMenu id="sex1" value="${tableController.sex}">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="Male" itemValue="Male" />
                                     <f:selectItem itemLabel="Female" itemValue="Female" />
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race1" value="">
+                                <p:selectOneMenu id="race1" value="${tableController.race}">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
                                     <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
@@ -90,7 +95,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                         <p:tab title="Dataset Selection 2" >
                             <h:panelGrid columns="2" >
                                 <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset2" value="">
+                                <p:selectOneMenu id="dataset2" value="dataset2">
                                     <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
                                     <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
                                     <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
@@ -100,14 +105,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex2" value="">
+                                <p:selectOneMenu id="sex2" value="sex2">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="Male" itemValue="Male" />
                                     <f:selectItem itemLabel="Female" itemValue="Female" />
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race2" value="">
+                                <p:selectOneMenu id="race2" value="race2">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
                                     <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
@@ -125,7 +130,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                         <p:tab title="Dataset Selection 3" >
                             <h:panelGrid columns="2" >
                                 <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset3" value="">
+                                <p:selectOneMenu id="dataset3" value="dataset3">
                                     <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
                                     <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
                                     <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
@@ -136,14 +141,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
 
                                 <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex3" value="">
+                                <p:selectOneMenu id="sex3" value="sex3">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="Male" itemValue="Male" />
                                     <f:selectItem itemLabel="Female" itemValue="Female" />
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race3" value="">
+                                <p:selectOneMenu id="race3" value="race3">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
                                     <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
@@ -160,7 +165,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
                     </p:accordionPanel>
 
-                    <p:commandButton id="submit" value="Display Graph" 
+                    <p:commandButton id="submit" value="Display Graph"  action="${tableController.generateBar()}"
                                      ajax="false" icon="ui-icon-calculator" />
                 </div>
 

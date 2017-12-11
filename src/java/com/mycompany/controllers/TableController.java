@@ -60,7 +60,7 @@ public class TableController implements Serializable {
     String dataset = "";
     String graphType = "";
     int minYear = 2000;
-    int maxYear = 2015;
+    int maxYear = 2014;
     String characteristic = "total";
     
     ArrayList<Double> percentages = new ArrayList<>();
@@ -68,13 +68,43 @@ public class TableController implements Serializable {
     LineGraphController LGC = new LineGraphController();
     AreaGraphController AC = new AreaGraphController();
 
+    BarChartModel barModel;
+
+    public BarChartModel getBarModel() {
+        return barModel;
+    }
+
+    public void setBarModel(BarChartModel barModel) {
+        this.barModel = barModel;
+    }
+
+    public String getGraphType() {
+        return graphType;
+    }
+
+    public void setGraphType(String graphType) {
+        this.graphType = graphType;
+    }
+
+    public String getCharacteristic() {
+        return characteristic;
+    }
+
+    public void setCharacteristic(String characteristic) {
+        this.characteristic = characteristic;
+    }
+    
+    
+    
     public void generateBar() {
+        getAPIData();
         BGC.setMaxYear(maxYear);
         BGC.setMinYear(minYear);
         BGC.setPercentages(percentages);
         BGC.setGender(sex);
         BGC.setTitle(dataset);
         BGC.init();
+        barModel = BGC.getBarModel();
 
     }
     public void generateLine()
@@ -140,11 +170,12 @@ public class TableController implements Serializable {
     }
 
     public void getAPIData() {
-        adc.setSexFilter(sex);
+        //adc.setSexFilter(sex);
         adc.setMaxYearFilter(String.valueOf(maxYear));
         adc.setMinYearFilter(String.valueOf(minYear));
-        adc.setRaceFilter(race);
-        adc.setCharacteristicFilter(characteristic);
+        //adc.setRaceFilter(race);
+        //adc.setCharacteristicFilter(characteristic);
+        adc.setCharacteristicFilter("Total");
         switch (dataset) {
             case "High School Dropout Rates":
                 adc.highSchoolDropOutRates();

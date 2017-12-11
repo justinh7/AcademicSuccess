@@ -91,10 +91,10 @@ public class BarGraphController implements Serializable {
         BarChartModel model = new BarChartModel();
  
         ChartSeries type = new ChartSeries();
-        type.setLabel(gender);
-        for(int i = minYear;i<maxYear;i++)
+        type.setLabel("Data Selection 1");
+        for(int i = minYear;i<=maxYear;i++)
         {
-            type.set(String.valueOf(i),percentages.get(i));
+            type.set(String.valueOf(i),percentages.get(i - minYear));
         }
         model.addSeries(type);
        
@@ -114,7 +114,7 @@ public class BarGraphController implements Serializable {
         barModel.setLegendPosition("ne");
          
         Axis xAxis = barModel.getAxis(AxisType.X);
-        xAxis.setLabel("Gender");
+        xAxis.setLabel("Year");
          
         Axis yAxis = barModel.getAxis(AxisType.Y);
         yAxis.setLabel("Percentage");
