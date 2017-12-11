@@ -29,6 +29,7 @@ import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartModel;
 
 /*
 ---------------------------------------------------------------------------
@@ -53,22 +54,86 @@ as long as the user's established HTTP session is alive.
  */
 public class TableController implements Serializable {
 
-    @Inject
-    com.mycompany.APIInteraction.APIDataController adc;
-    String sex = "";
+    
+    com.mycompany.APIInteraction.APIDataController adc = new APIDataController();
+    
+    com.mycompany.APIInteraction.APIDataController adc2 = new APIDataController();
+   
+    com.mycompany.APIInteraction.APIDataController adc3 = new APIDataController();;
     String race = "";
+    String sex = "";
     String dataset = "";
     String graphType = "";
+
+    public String getSex2() {
+        return sex2;
+    }
+
+    public void setSex2(String sex2) {
+        this.sex2 = sex2;
+    }
+
+    public String getRace2() {
+        return race2;
+    }
+
+    public void setRace2(String race2) {
+        this.race2 = race2;
+    }
+
+    public String getDataset2() {
+        return dataset2;
+    }
+
+    public void setDataset2(String dataset2) {
+        this.dataset2 = dataset2;
+    }
+
+    public String getSex3() {
+        return sex3;
+    }
+
+    public void setSex3(String sex3) {
+        this.sex3 = sex3;
+    }
+
+    public String getRace3() {
+        return race3;
+    }
+
+    public void setRace3(String race3) {
+        this.race3 = race3;
+    }
+
+    public String getDataset3() {
+        return dataset3;
+    }
+
+    public void setDataset3(String dataset3) {
+        this.dataset3 = dataset3;
+    }
+    String sex2 = "";
+    String race2 = "";
+    String dataset2 = "";
+    String sex3 = "";
+    String race3 = "";
+    String dataset3 = "";
+   
     int minYear = 2000;
     int maxYear = 2014;
     String characteristic = "total";
     
     ArrayList<Double> percentages = new ArrayList<>();
+    ArrayList<Double> percentages2 = new ArrayList<>();
+    ArrayList<Double> percentages3 = new ArrayList<>();
     BarGraphController BGC = new BarGraphController();
     LineGraphController LGC = new LineGraphController();
     AreaGraphController AC = new AreaGraphController();
 
     BarChartModel barModel;
+    LineChartModel lineModel;
+   
+    
 
     public BarChartModel getBarModel() {
         return barModel;
@@ -97,11 +162,15 @@ public class TableController implements Serializable {
     
     
     public void generateBar() {
-        getAPIData();
+        //getAPIData();
         BGC.setMaxYear(maxYear);
         BGC.setMinYear(minYear);
         BGC.setPercentages(percentages);
         BGC.setGender(sex);
+        BGC.setPercentages2(percentages2);
+        BGC.setGender2(sex2);
+        BGC.setPercentages3(percentages3);
+        BGC.setGender3(sex3);
         BGC.setTitle(dataset);
         BGC.init();
         barModel = BGC.getBarModel();
@@ -112,12 +181,26 @@ public class TableController implements Serializable {
         LGC.setMaxYear(maxYear);
         LGC.setPercentages(percentages);
         LGC.setGender(sex);
+        LGC.setPercentages2(percentages2);
+        LGC.setGender2(sex2);
+        LGC.setPercentages3(percentages3);
+        LGC.setGender3(sex3);
         LGC.setTitle(dataset);
         LGC.init();
+        lineModel = LGC.getLineModel1();
     }
     public void generateArea()
     {
-        
+        AC.setMaxYear(maxYear);
+        AC.setPercentages(percentages);
+        AC.setGender(sex);
+        AC.setPercentages2(percentages2);
+        AC.setGender2(sex2);
+        AC.setPercentages3(percentages3);
+        AC.setGender3(sex3);
+        AC.setTitle(dataset);
+        AC.init();
+        lineModel = AC.getAreaModel();
     }
     
 
@@ -173,34 +256,109 @@ public class TableController implements Serializable {
         //adc.setSexFilter(sex);
         adc.setMaxYearFilter(String.valueOf(maxYear));
         adc.setMinYearFilter(String.valueOf(minYear));
+        adc2.setMaxYearFilter(String.valueOf(maxYear));
+        adc2.setMinYearFilter(String.valueOf(minYear));
+        adc3.setMaxYearFilter(String.valueOf(maxYear));
+        adc3.setMinYearFilter(String.valueOf(minYear));
         //adc.setRaceFilter(race);
         //adc.setCharacteristicFilter(characteristic);
         adc.setCharacteristicFilter("Total");
+        adc2.setCharacteristicFilter("Total");
+        adc3.setCharacteristicFilter("Total");
+        
         switch (dataset) {
             case "High School Dropout Rates":
                 adc.highSchoolDropOutRates();
                 break;
             case "College Enrollment Rates":
+                
+                System.out.println("COLLEGE ENROLLEMENT RATES");
                 adc.collegeEnrollmentRates();
                 break;
             case "College Graduation Rates":
+                System.out.println("COLLEGE Graduation RATES");
                 adc.collegeGraduationRates();
                 break;
             case "Rates Disconnected Youth":
+                System.out.println("Disconnected YOUTH RATES");
                 adc.ratesOfDisconnectedYouth();
                 break;
             case "Labor Force Participation Rates":
+                System.out.println("LABOR FORCE RATES");
                 adc.laborForceParticipationRates();
                 break;
             case "Imprisonment Rates":
                 adc.imprisonmentRates();
                 break;
         }
+        switch (dataset2) {
+            case "High School Dropout Rates":
+                adc2.highSchoolDropOutRates();
+                break;
+            case "College Enrollment Rates":
+                
+                System.out.println("COLLEGE ENROLLEMENT RATES");
+                adc2.collegeEnrollmentRates();
+                break;
+            case "College Graduation Rates":
+                System.out.println("COLLEGE Graduation RATES");
+                adc2.collegeGraduationRates();
+                break;
+            case "Rates Disconnected Youth":
+                System.out.println("Disconnected YOUTH RATES");
+                adc2.ratesOfDisconnectedYouth();
+                break;
+            case "Labor Force Participation Rates":
+                System.out.println("LABOR FORCE RATES");
+                adc2.laborForceParticipationRates();
+                break;
+            case "Imprisonment Rates":
+                adc2.imprisonmentRates();
+                break;
+        }
+        switch (dataset3) {
+            case "High School Dropout Rates":
+                adc3.highSchoolDropOutRates();
+                break;
+            case "College Enrollment Rates":
+                
+                System.out.println("COLLEGE ENROLLEMENT RATES");
+                adc3.collegeEnrollmentRates();
+                break;
+            case "College Graduation Rates":
+                System.out.println("COLLEGE Graduation RATES");
+                adc3.collegeGraduationRates();
+                break;
+            case "Rates Disconnected Youth":
+                System.out.println("Disconnected YOUTH RATES");
+                adc3.ratesOfDisconnectedYouth();
+                break;
+            case "Labor Force Participation Rates":
+                System.out.println("LABOR FORCE RATES");
+                adc3.laborForceParticipationRates();
+                break;
+            case "Imprisonment Rates":
+                adc3.imprisonmentRates();
+                break;
+        }
         List<BaseRate> data = adc.getBaseRateList();
+        List<BaseRate> data2 = adc2.getBaseRateList();
+        List<BaseRate> data3 = adc3.getBaseRateList();
         for(BaseRate i:data)
         {
             
             percentages.add(i.getPercentage());
+        }
+         for(BaseRate i:data2)
+        {
+            
+            percentages2.add(i.getPercentage());
+            
+        }
+          for(BaseRate i:data3)
+        {
+            
+            percentages3.add(i.getPercentage());
             
         }
         selectGraphType();
@@ -211,14 +369,14 @@ public class TableController implements Serializable {
 
     public void selectGraphType() {
         switch (graphType) {
-            case "bar":
+            case "Bar Graph":
                 generateBar();
                 break;
-            case "line":
-                //getBarModel();
+            case "Line Graph":
+                generateLine();
                 break;
-            case "Area":
-                //getBarModel();
+            case "Area Graph":
+                generateArea();
                 break;
 
         }

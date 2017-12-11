@@ -3,6 +3,7 @@
  * Copyright © 2017 Hanson Cress. All rights reserved. * 
  */
 package com.mycompany.controllers;
+
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,15 +14,16 @@ import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartSeries;
- 
+
 /**
  *
  * @author Hanson
  */
-public class LineGraphController implements Serializable  {
-   private LineChartModel lineModel1;
+public class LineGraphController implements Serializable {
+
+    private LineChartModel lineModel1;
     //private LineChartModel lineModel2;
-       String title = "";
+    String title = "";
 
     public String getTitle() {
         return title;
@@ -62,26 +64,66 @@ public class LineGraphController implements Serializable  {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    
-    
+
     ArrayList<Double> percentages;
-    int minYear= 2000;
+    ArrayList<Double> percentages2;
+    ArrayList<Double> percentages3;
+    int minYear = 2000;
     int maxYear = 2015;
-    String gender = ""; 
-    
+    String gender = "";
+    String gender2 = "";
+
+    public ArrayList<Double> getPercentages2() {
+        return percentages2;
+    }
+
+    public void setPercentages2(ArrayList<Double> percentages2) {
+        this.percentages2 = percentages2;
+    }
+
+    public ArrayList<Double> getPercentages3() {
+        return percentages3;
+    }
+
+    public void setPercentages3(ArrayList<Double> percentages3) {
+        this.percentages3 = percentages3;
+    }
+
+    public String getGender2() {
+        return gender2;
+    }
+
+    public void setGender2(String gender2) {
+        this.gender2 = gender2;
+    }
+
+    public String getGender3() {
+        return gender3;
+    }
+
+    public void setGender3(String gender3) {
+        this.gender3 = gender3;
+    }
+    String gender3 = "";
+
     @PostConstruct
     public void init() {
         createLineModels();
     }
- 
+
     public LineChartModel getLineModel1() {
         return lineModel1;
     }
- /*
+
+    public void setLineModel1(LineChartModel lineModel1) {
+        this.lineModel1 = lineModel1;
+    }
+
+    /*
     public LineChartModel getLineModel2() {
         return lineModel2;
     }
-   */  
+     */
     private void createLineModels() {
         lineModel1 = initLinearModel();
         lineModel1.setTitle(title);
@@ -92,7 +134,7 @@ public class LineGraphController implements Serializable  {
         yAxis.setMin(0);
         yAxis.setMax(100);
         yAxis.setLabel("Percentage");
-         
+
         /*lineModel2 = initCategoryModel();
         lineModel2.setTitle("Category Chart");
         lineModel2.setLegendPosition("e");
@@ -103,32 +145,36 @@ public class LineGraphController implements Serializable  {
         yAxis.setMin(0);
         yAxis.setMax(200);*/
     }
-     
+
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
- 
+
         LineChartSeries series1 = new LineChartSeries();
-        for(int i = minYear;i<maxYear;i++)
-        {
-            series1.set(String.valueOf(i),percentages.get(i));
+        if (!percentages.isEmpty()) {
+            for (int i = minYear; i < maxYear; i++) {
+                series1.set(String.valueOf(i), percentages.get(i - minYear));
+            }
         }
         model.addSeries(series1);
-        /*
+
         LineChartSeries series2 = new LineChartSeries();
-        series2.setLabel("Series 2");
- 
-        series2.set(1, 6);
-        series2.set(2, 3);
-        series2.set(3, 2);
-        series2.set(4, 7);
-        series2.set(5, 9);
- */
-        model.addSeries(series1);
-       // model.addSeries(series2);
-         
+        if (!percentages2.isEmpty()) {
+            for (int i = minYear; i < maxYear; i++) {
+                series2.set(String.valueOf(i), percentages2.get(i - minYear));
+            }
+        }
+        model.addSeries(series2);
+
+        LineChartSeries series3 = new LineChartSeries();
+        if (!percentages3.isEmpty()) {
+            for (int i = minYear; i < maxYear; i++) {
+                series3.set(String.valueOf(i), percentages3.get(i - minYear));
+            }
+            model.addSeries(series3);
+        }
         return model;
     }
-     /*
+    /*
     private LineChartModel initCategoryModel() {
         LineChartModel model = new LineChartModel();
  
@@ -153,5 +199,5 @@ public class LineGraphController implements Serializable  {
          
         return model;
     }
-  */
+     */
 }

@@ -95,7 +95,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                         <p:tab title="Dataset Selection 2" >
                             <h:panelGrid columns="2" >
                                 <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset2" value="dataset2">
+                                <p:selectOneMenu id="dataset2" value="${tableController.dataset2}">
                                     <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
                                     <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
                                     <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
@@ -105,14 +105,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex2" value="sex2">
+                                <p:selectOneMenu id="sex2" value="${tableController.sex2}">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="Male" itemValue="Male" />
                                     <f:selectItem itemLabel="Female" itemValue="Female" />
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race2" value="race2">
+                                <p:selectOneMenu id="race2" value="${tableController.race2}">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
                                     <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
@@ -130,7 +130,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                         <p:tab title="Dataset Selection 3" >
                             <h:panelGrid columns="2" >
                                 <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset3" value="dataset3">
+                                <p:selectOneMenu id="dataset3" value="${tableController.dataset3}">
                                     <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
                                     <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
                                     <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
@@ -141,14 +141,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
 
                                 <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex3" value="sex3">
+                                <p:selectOneMenu id="sex3" value="${tableController.sex3}">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="Male" itemValue="Male" />
                                     <f:selectItem itemLabel="Female" itemValue="Female" />
                                 </p:selectOneMenu>
 
                                 <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race3" value="race3">
+                                <p:selectOneMenu id="race3" value="${tableController.race3}">
                                     <f:selectItem itemLabel="All" itemValue="All" />
                                     <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
                                     <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
@@ -165,7 +165,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
                     </p:accordionPanel>
 
-                    <p:commandButton id="submit" value="Display Graph"  action="${tableController.generateBar()}"
+                    <p:commandButton id="submit" value="Display Graph"  action="${tableController.getAPIData()}"
                                      ajax="false" icon="ui-icon-calculator" />
                 </div>
 

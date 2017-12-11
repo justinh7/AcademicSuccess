@@ -3,6 +3,7 @@
 package com.mycompany.controllers;
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
  
 import org.primefaces.model.chart.Axis;
@@ -15,6 +16,89 @@ import org.primefaces.model.chart.LineChartSeries;
 public class AreaGraphController implements Serializable {
  
     private LineChartModel areaModel;
+    ArrayList<Double> percentages;
+    ArrayList<Double> percentages2;
+    ArrayList<Double> percentages3;
+    int minYear = 2000;
+    int maxYear = 2015;
+    String gender = "";
+    String gender2 = "";
+    String title = "";
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+     String gender3 = "";
+
+    public ArrayList<Double> getPercentages() {
+        return percentages;
+    }
+
+    public void setPercentages(ArrayList<Double> percentages) {
+        this.percentages = percentages;
+    }
+
+    public ArrayList<Double> getPercentages2() {
+        return percentages2;
+    }
+
+    public void setPercentages2(ArrayList<Double> percentages2) {
+        this.percentages2 = percentages2;
+    }
+
+    public ArrayList<Double> getPercentages3() {
+        return percentages3;
+    }
+
+    public void setPercentages3(ArrayList<Double> percentages3) {
+        this.percentages3 = percentages3;
+    }
+
+    public int getMinYear() {
+        return minYear;
+    }
+
+    public void setMinYear(int minYear) {
+        this.minYear = minYear;
+    }
+
+    public int getMaxYear() {
+        return maxYear;
+    }
+
+    public void setMaxYear(int maxYear) {
+        this.maxYear = maxYear;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getGender2() {
+        return gender2;
+    }
+
+    public void setGender2(String gender2) {
+        this.gender2 = gender2;
+    }
+
+    public String getGender3() {
+        return gender3;
+    }
+
+    public void setGender3(String gender3) {
+        this.gender3 = gender3;
+    }
+ 
  
     @PostConstruct
     public void init() {
@@ -28,28 +112,50 @@ public class AreaGraphController implements Serializable {
     private void createAreaModel() {
         areaModel = new LineChartModel();
  
-        LineChartSeries boys = new LineChartSeries();
-        boys.setFill(true);
-        boys.setLabel("Boys");
-        boys.set("2004", 120);
-        boys.set("2005", 100);
-        boys.set("2006", 44);
-        boys.set("2007", 150);
-        boys.set("2008", 25);
- 
-        LineChartSeries girls = new LineChartSeries();
-        girls.setFill(true);
-        girls.setLabel("Girls");
-        girls.set("2004", 52);
-        girls.set("2005", 60);
-        girls.set("2006", 110);
-        girls.set("2007", 90);
-        girls.set("2008", 120);
- 
-        areaModel.addSeries(boys);
-        areaModel.addSeries(girls);
+        LineChartSeries type = new LineChartSeries();
+        LineChartSeries type2 = new LineChartSeries();
+        
+        LineChartSeries type3 = new LineChartSeries();
+        type.setFill(true);
+        type.setLabel("Data Selection 1");
+        if (!percentages.isEmpty()) {
+            for (int i = minYear; i <= maxYear; i++) {
+                type.set(String.valueOf(i), percentages.get(i - minYear));
+            }
+        }
+        areaModel.addSeries(type);
+        
+        type2.setFill(true);
+        type2.setLabel("Data Selection 1");
+        if (!percentages2.isEmpty()) {
+            for (int i = minYear; i <= maxYear; i++) {
+                type2.set(String.valueOf(i), percentages2.get(i - minYear));
+            }
+        }
+        areaModel.addSeries(type2);
+        
+        
+        type3.setFill(true);
+        type3.setLabel("Data Selection 1");
+        if (!percentages3.isEmpty()) {
+            for (int i = minYear; i <= maxYear; i++) {
+                type3.set(String.valueOf(i), percentages3.get(i - minYear));
+            }
+        }
+        areaModel.addSeries(type3);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
          
-        areaModel.setTitle("Area Chart");
+        areaModel.setTitle(title);
         areaModel.setLegendPosition("ne");
         areaModel.setStacked(true);
         areaModel.setShowPointLabels(true);
@@ -57,9 +163,9 @@ public class AreaGraphController implements Serializable {
         Axis xAxis = new CategoryAxis("Years");
         areaModel.getAxes().put(AxisType.X, xAxis);
         Axis yAxis = areaModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Births");
+        yAxis.setLabel("Percentages");
         yAxis.setMin(0);
-        yAxis.setMax(300);
+        yAxis.setMax(100);
     }
      
 }
