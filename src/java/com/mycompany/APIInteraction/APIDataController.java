@@ -62,13 +62,11 @@ public class APIDataController implements Serializable {
     private String sexFilter;
     private String minYearFilter;
     private String maxYearFilter;
-    private String searchYear;
     
     private String dataType = "College Enrollment Rates";
 
     @PostConstruct
-    public void init() {
-        //System.out.println(dataType);
+    public void init() {        
         switch (dataType) {
                 case "High School Dropout Rates":
                     highSchoolDropOutRates();
@@ -91,14 +89,6 @@ public class APIDataController implements Serializable {
                 default:
                     break;
             }
-    }
-
-    public String getSearchYear() {
-        return searchYear;
-    }
-
-    public void setSearchYear(String searchYear) {
-        this.searchYear = searchYear;
     }
     
     public String getDataType() {
@@ -413,16 +403,15 @@ public class APIDataController implements Serializable {
     }
     
     public String performSearch() {
-        System.out.println(dataType);
         characteristicFilter = buildCharacteristicString(sexFilter, raceFilter, dataType);
-        System.out.println(characteristicFilter);
-        sexFilter = null;
         raceFilter = null;
+        sexFilter = null;
         init();
         return "AcademicDataSearchResults?faces-redirect=true";
     }
     
     public void clearSearchFields() {
+        characteristicFilter = null;
         minYearFilter = null;
         maxYearFilter = null;
         sexFilter = null;
@@ -432,7 +421,7 @@ public class APIDataController implements Serializable {
     
     private String buildCharacteristicString(String sex, String race, String dataset) {
         StringBuilder result = new StringBuilder();
-        race.replaceAll(" ", "%20");
+        race = race.replaceAll(" ", "%20");
 
         //Filtering for dataset 1
         if (dataset.equals("High School Dropout Rates") || dataset.equals("College Graduation Rates")) {

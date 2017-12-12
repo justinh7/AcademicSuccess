@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Created by Khoa Le on 2017.11.30 
+Created by Khoa Le on 2017.12.12 
 Copyright © 2017 Khoa Le. All rights reserved.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
@@ -38,8 +38,8 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                      rowsPerPageTemplate="5,10,15,20,25,30,40,50"
                                      >
 
-                            <p:ajax event="rowSelect" update="refreshButton searchButton"/>
-                            <p:ajax event="rowUnselect" update="refreshButton searchButton"/>
+                            <p:ajax event="rowSelect" update="backButton"/>
+                            <p:ajax event="rowUnselect" update="backButton"/>
                             
                             <!-- 
                             =================
@@ -96,25 +96,10 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                 </f:facet>
                                 <h:outputText value="#{baseRateList.percentage}"/>
                             </p:column>
-
-                            <!-- PrimeFaces data table's footer -->
+                            
                             <f:facet name="footer">
-                               <p:selectOneMenu id="dataset" value="#{apiDataController.dataType}">
-                                    <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
-                                    <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
-                                    <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
-                                    <f:selectItem itemLabel="Rates Disconnected Youth" itemValue="Rates Disconnected Youth" />
-                                    <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
-                                    <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
-                                </p:selectOneMenu>
-                                
-                                <!-- PrimeFaces button 'Refresh' -->
-                                <p:commandButton id="refreshButton" icon="ui-icon-refresh" value = "Refresh" styleClass="commandButton"
-                                                 action="#{apiDataController.init()}" update="DataListForm" ajax="false"/> 
-                                
-                                <p:commandButton id="searchButton" icon="ui-icon-search" value="Search" 
-                                                 styleClass="commandButton" 
-                                                 oncomplete="PF('SearchAcademicDataDialog').show()"/>
+                                <p:commandButton id="backButton" icon="ui-icon-arrowreturn-1-w" value="Go Back" 
+                                                     action="#{apiDataController.goBack}"/>
                             </f:facet>
 
                         </p:dataTable>
@@ -122,8 +107,6 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
                 </h:form>
             </div>
-            
-            <ui:include src="AcademicDataSearch.xhtml"/>
         </ui:define>
 
     </ui:composition>

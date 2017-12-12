@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Khoa Le on 2017.12.12 
+Copyright © 2017 Khoa Le. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition>
+        <!--
+        *******************************
+        Dialog pop-up window for SEARCH
+        *******************************
+        -->
+        <!-- Clicking the Search button displays this file in a dialog window on top of the Search button's page. -->
+        <p:dialog position="center center" id="SearchAcademicDataDialog" widgetVar="SearchAcademicDataDialog" 
+                  modal="true" resizable="false" appendTo="@(body)" header="Search Academic Data" width="500px">
+
+            <h:form id="AcademicDataSearchForm">
+                <div align="center" bgcolor="#FDF5E6" >
+                    <br />
+                    
+                    <table border="0" align="center" cellpadding="10" cellspacing="0">
+                        <tr> <th align="left"> <h:outputText id="yearQueryRange" value="Enter Years to Search:" /> </th>
+                            <td align="right"> 
+                                <c:if test="${apiDataController.dataType == 'High School Dropout Rates'}"> 
+                                    <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2014" display="yearQueryRange" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                    <h:inputHidden id="txt61" value="${apiDataController.minYearFilter}" />
+                                    <h:inputHidden id="txt71" value="${apiDataController.maxYearFilter}" />
+                                </c:if>
+                                <c:if test="${apiDataController.dataType == 'College Enrollment Rates'}"> 
+                                    <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2013" display="yearQueryRange" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                    <h:inputHidden id="txt61" value="${apiDataController.minYearFilter}" />
+                                    <h:inputHidden id="txt71" value="${apiDataController.maxYearFilter}" />
+                                </c:if>
+                                <c:if test="${apiDataController.dataType == 'College Graduation Rates'}"> 
+                                    <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2014" display="yearQueryRange" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                    <h:inputHidden id="txt61" value="${apiDataController.minYearFilter}" />
+                                    <h:inputHidden id="txt71" value="${apiDataController.maxYearFilter}" />
+                                </c:if>
+                                <c:if test="${apiDataController.dataType == 'Rates Disconnected Youth'}"> 
+                                    <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2014" display="yearQueryRange" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                    <h:inputHidden id="txt61" value="${apiDataController.minYearFilter}" />
+                                    <h:inputHidden id="txt71" value="${apiDataController.maxYearFilter}" />
+                                </c:if>
+                                <c:if test="${apiDataController.dataType == 'Labor Force Participation Rates'}"> 
+                                    <p:slider for="txt61,txt71" minValue = "1980" maxValue = "2014" display="yearQueryRange" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                    <h:inputHidden id="txt61" value="${apiDataController.minYearFilter}" />
+                                    <h:inputHidden id="txt71" value="${apiDataController.maxYearFilter}" />
+                                </c:if>
+                                <c:if test="${apiDataController.dataType == 'Imprisonment Rates'}"> 
+                                    <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2012" display="yearQueryRange" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                    <h:inputHidden id="txt61" value="${apiDataController.minYearFilter}" />
+                                    <h:inputHidden id="txt71" value="${apiDataController.maxYearFilter}" />
+                                </c:if> 
+                            </td>
+                        </tr>
+
+                        <tr> <th align="left"><h:outputLabel for="raceFilterField" value="Race Filter:" /></th>
+                            <td align="right"><p:selectOneMenu id="raceFilterField" value="#{apiDataController.raceFilter}" 
+                                                               style="width:200px"
+                                                               required="true">
+                                    <f:selectItem itemLabel="All" itemValue="All" />
+                                    <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
+                                    <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
+                                    <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
+                                    <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
+                                    <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
+                                    <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
+                                    <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
+                                    <f:validateRequired />
+                                </p:selectOneMenu></td>
+                        </tr>
+
+                        <tr> <th align="left"><h:outputLabel for="sexFilterField" value="Sex Filter:" /></th>
+                            <td align="right"><p:selectOneMenu id="sexFilterField" value="#{apiDataController.sexFilter}" 
+                                                               style="width:200px"
+                                                               required="true">
+                                    <f:selectItem itemLabel="All" itemValue="All" />
+                                    <f:selectItem itemLabel="Male" itemValue="Male" />
+                                    <f:selectItem itemLabel="Female" itemValue="Female" />
+                                    <f:validateRequired />
+                                </p:selectOneMenu></td>
+                        </tr>
+                    </table>
+                    <br /><br /><br />
+
+                    <p:messages id="msgs" styleClass="errorMessages"/>
+
+                    <!--  SEARCH button:
+                    Clicking the Search button invokes the performSearch() method of the
+                    apiDataController CDI @Named bean. The performSearch() method executes
+                    the search for the searchQuery property value and at the end of the execution with
+                    
+                        return "AcademicDataSearchResults?faces-redirect=true";
+                    
+                    it returns "AcademicDataSearchResults" as the name of the XHTML file to display.
+                    -->
+                    <p:commandButton value="Search" id="searchButton" ajax="false"
+                                     styleClass="commandButton" icon="ui-icon-search"
+                                     action="#{apiDataController.performSearch()}"/>
+                    &nbsp;&nbsp;
+
+                    <!-- CLEAR button (immediate="true" is critically important!) -->
+                    <p:commandButton id="clear" value="Clear" styleClass="commandButton" immediate="true"
+                                     action="#{apiDataController.clearSearchFields()}" icon="ui-icon-refresh">
+                    </p:commandButton>
+                    &nbsp;&nbsp;
+
+                    <!-- CANCEL button -->
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PF('SearchAcademicDataDialog').hide()"
+                                     action="#{apiDataController.clearSearchFields()}"
+                                     styleClass="commandButton" icon="ui-icon-cancel">
+                    </p:commandButton>
+                    <br /><br />
+                </div>
+            </h:form>  
+
+        </p:dialog>
+    </ui:composition>
+</html>
+
