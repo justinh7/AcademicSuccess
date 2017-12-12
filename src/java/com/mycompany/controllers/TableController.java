@@ -181,11 +181,17 @@ public class TableController implements Serializable {
         BGC.setMinYear(minYear);
         BGC.setPercentages(percentages);
         BGC.setGender(sex);
+        BGC.setRace(race);
+        BGC.setDataset(dataset);
         BGC.setPercentages2(percentages2);
         BGC.setGender2(sex2);
+        BGC.setRace2(race2);
+        BGC.setDataset2(dataset2);
         BGC.setPercentages3(percentages3);
         BGC.setGender3(sex3);
-        BGC.setTitle(dataset);
+        BGC.setRace3(race3);
+        BGC.setDataset3(dataset3);
+        BGC.setTitle(dataset + " vs. " + dataset2 + " vs. " + dataset3);
         BGC.init();
         barModel = BGC.getBarModel();
 
@@ -196,11 +202,17 @@ public class TableController implements Serializable {
         LGC.setMaxYear(maxYear);
         LGC.setPercentages(percentages);
         LGC.setGender(sex);
+        LGC.setRace(race);
+        LGC.setDataset(dataset);
         LGC.setPercentages2(percentages2);
         LGC.setGender2(sex2);
+        LGC.setRace2(race2);
+        LGC.setDataset2(dataset2);
         LGC.setPercentages3(percentages3);
         LGC.setGender3(sex3);
-        LGC.setTitle(dataset);
+        LGC.setRace3(race3);
+        LGC.setDataset3(dataset3);
+        LGC.setTitle(dataset + " vs. " + dataset2 + " vs. " + dataset3);
         LGC.init();
         lineModel = LGC.getLineModel1();
     }
@@ -210,11 +222,17 @@ public class TableController implements Serializable {
         AC.setMaxYear(maxYear);
         AC.setPercentages(percentages);
         AC.setGender(sex);
+        AC.setRace(race);
+        AC.setDataset(dataset);
         AC.setPercentages2(percentages2);
         AC.setGender2(sex2);
+        AC.setRace2(race2);
+        AC.setDataset2(dataset2);
         AC.setPercentages3(percentages3);
         AC.setGender3(sex3);
-        AC.setTitle(dataset);
+        AC.setRace3(race3);
+        AC.setDataset3(dataset3);
+        AC.setTitle(dataset + " vs. " + dataset2 + " vs. " + dataset3);
         AC.init();
         areaModel = AC.getAreaModel();
     }
