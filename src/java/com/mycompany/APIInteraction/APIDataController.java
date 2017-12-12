@@ -299,8 +299,12 @@ public class APIDataController implements Serializable {
                         if (count != null && !count.equals("")) {
                             countAsDouble = Double.parseDouble(count);
                         }
+                        double percentageAsDouble = 0;
+                        if (percentage != null && !percentage.equals("")) {
+                            percentageAsDouble = Double.parseDouble(percentage);
+                        }
                         
-                        double percentageAsDouble = Double.parseDouble(percentage);
+                        
                         int yearAsInt = Integer.parseInt(year);
                         
                         if (race.length() == 0) {
