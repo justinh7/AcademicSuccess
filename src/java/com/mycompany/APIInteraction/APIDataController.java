@@ -62,6 +62,7 @@ public class APIDataController implements Serializable {
     private String sexFilter;
     private String minYearFilter;
     private String maxYearFilter;
+    private String searchYear;
     
     private String dataType = "College Enrollment Rates";
 
@@ -90,6 +91,14 @@ public class APIDataController implements Serializable {
                 default:
                     break;
             }
+    }
+
+    public String getSearchYear() {
+        return searchYear;
+    }
+
+    public void setSearchYear(String searchYear) {
+        this.searchYear = searchYear;
     }
     
     public String getDataType() {
@@ -398,5 +407,150 @@ public class APIDataController implements Serializable {
             }
         }
     }
+    
+    public String performSearch() {
+        System.out.println(dataType);
+        characteristicFilter = buildCharacteristicString(sexFilter, raceFilter, dataType);
+        System.out.println(characteristicFilter);
+        sexFilter = null;
+        raceFilter = null;
+        init();
+        return "AcademicDataSearchResults?faces-redirect=true";
+    }
+    
+    public void clearSearchFields() {
+        minYearFilter = null;
+        maxYearFilter = null;
+        sexFilter = null;
+        raceFilter = null;
+        dataType = "College Enrollment Rates";
+    }
+    
+    private String buildCharacteristicString(String sex, String race, String dataset) {
+        StringBuilder result = new StringBuilder();
+        race.replaceAll(" ", "%20");
 
+        //Filtering for dataset 1
+        if (dataset.equals("High School Dropout Rates") || dataset.equals("College Graduation Rates")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(race);
+            } else {
+                result.append("Total%20-%20");
+                result.append(sex);
+                result.append("s,%20");
+                result.append(race);
+            }
+        } else if (dataset.equals("College Enrollment Rates")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total%20");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(race);
+            } else {
+                result.append("Total%20-%20");
+                result.append(sex);
+                result.append(",%20");
+                result.append(race);
+            }
+        } else if (dataset.equals("Rates Disconnected Youth")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(race);
+            } else {
+                if (sex.equals("Female")) {
+                    result.append("Total%20-%20");
+                    result.append(sex);
+                    result.append(",");
+                    result.append(race);
+                } else if (sex.equals("Male")) {
+                    result.append("Total%20-%20");
+                    result.append(sex);
+                    result.append(",%20");
+                    result.append(race);
+                }
+            }
+
+        } else if (dataset.equals("Imprisonment Rates")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                if (race.equals("White,%20non-Hispanic") || race.equals("Black,%20non-Hispanic") || race.equals("Hispanic")) {
+                    result.append(race);
+                } else {
+                    result.append("Other%20race,%20non-Hispanic");
+                }
+            } else {
+                result.append("Total%20-%20");
+                if (race.equals("White,%20non-Hispanic") || race.equals("Black,%20non-Hispanic") || race.equals("Hispanic")) {
+                    result.append(race);
+                } else {
+                    result.append("Other%20race,%20non-Hispanic");
+                }
+            }
+
+        } else if (dataset.equals("Labor Force Participation Rates")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+                result.append(",%20Age%2018-24");
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                result.append("Male,%20");
+                if (race.equals("White,%20non-Hispanic")) {
+                    result.append("White");
+                } else if (race.equals("Black,%20non-Hispanic")) {
+                    result.append("Black");
+                } else if (race.equals("Hispanic")) {
+                    result.append("Hispanic");
+                } else if (race.equals("Asian,%20non-Hispanic")) {
+                    result.append("Asian");
+                }
+
+                result.append(",%20Age%2018-24");
+            } else {
+                result.append("Total%20-%20");
+                result.append(sex);
+                result.append(",%20");
+                if (race.equals("White,%20non-Hispanic")) {
+                    result.append("White");
+                } else if (race.equals("Black,%20non-Hispanic")) {
+                    result.append("Black");
+                } else if (race.equals("Hispanic")) {
+                    result.append("Hispanic");
+                } else if (race.equals("Asian, %20non-Hispanic")) {
+                    result.append("Asian");
+                }
+                result.append(",%20Age%2018-24");
+
+            }
+        }
+
+        return result.toString();
+    }
+    
+    public String goBack() {
+        clearSearchFields();
+        init();
+        return "AcademicData?faces-redirect=true";
+    }
 }
