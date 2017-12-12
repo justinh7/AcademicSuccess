@@ -69,7 +69,7 @@ public class LineGraphController implements Serializable {
     ArrayList<Double> percentages2;
     ArrayList<Double> percentages3;
     int minYear = 2000;
-    int maxYear = 2015;
+    int maxYear = 2014;
     String gender = "";
     String gender2 = "";
 
@@ -150,24 +150,27 @@ public class LineGraphController implements Serializable {
         LineChartModel model = new LineChartModel();
 
         LineChartSeries series1 = new LineChartSeries();
+        series1.setLabel("Data Selection 1");
         if (!percentages.isEmpty()) {
-            for (int i = minYear; i < maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages.size(); i++) {
                 series1.set(String.valueOf(i), percentages.get(i - minYear));
             }
         }
         model.addSeries(series1);
 
         LineChartSeries series2 = new LineChartSeries();
+        series2.setLabel("Data Selection 2");
         if (!percentages2.isEmpty()) {
-            for (int i = minYear; i < maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages2.size(); i++) {
                 series2.set(String.valueOf(i), percentages2.get(i - minYear));
             }
         }
         model.addSeries(series2);
 
         LineChartSeries series3 = new LineChartSeries();
+        series3.setLabel("Data Selection 3");
         if (!percentages3.isEmpty()) {
-            for (int i = minYear; i < maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages3.size(); i++) {
                 series3.set(String.valueOf(i), percentages3.get(i - minYear));
             }
             model.addSeries(series3);

@@ -130,7 +130,7 @@ public class BarGraphController implements Serializable {
 
         type.setLabel("Data Selection 1");
         if (!percentages.isEmpty()) {
-            for (int i = minYear; i <= maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages.size(); i++) {
                 type.set(String.valueOf(i), percentages.get(i - minYear));
             }
         }
@@ -138,7 +138,7 @@ public class BarGraphController implements Serializable {
         type2.setLabel("Data Selection 2");
         if (!percentages2.isEmpty()) {
 
-            for (int i = minYear; i <= maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages2.size(); i++) {
                 type2.set(String.valueOf(i), percentages2.get(i - minYear));
             }
         }
@@ -146,7 +146,7 @@ public class BarGraphController implements Serializable {
 
         type3.setLabel("Data Selection 3");
         if (!percentages3.isEmpty()) {
-            for (int i = minYear; i <= maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages3.size(); i++) {
                 type3.set(String.valueOf(i), percentages3.get(i - minYear));
             }
         }

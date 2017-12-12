@@ -54,16 +54,38 @@ as long as the user's established HTTP session is alive.
  */
 public class TableController implements Serializable {
 
-    
     com.mycompany.APIInteraction.APIDataController adc = new APIDataController();
-    
+
     com.mycompany.APIInteraction.APIDataController adc2 = new APIDataController();
-   
-    com.mycompany.APIInteraction.APIDataController adc3 = new APIDataController();;
-    String race = "";
-    String sex = "";
-    String dataset = "";
+
+    com.mycompany.APIInteraction.APIDataController adc3 = new APIDataController();
+    ;
+    String race = "All";
+    String sex = "All";
+    String dataset = "High School Dropout Rates";
     String graphType = "";
+
+    String sex2 = "All";
+    String race2 = "All";
+    String dataset2 = "High School Dropout Rates";
+    String sex3 = "All";
+    String race3 = "All";
+    String dataset3 = "High School Dropout Rates";
+
+    int minYear = 2000;
+    int maxYear = 2014;
+    String characteristic = "total";
+
+    ArrayList<Double> percentages = new ArrayList<>();
+    ArrayList<Double> percentages2 = new ArrayList<>();
+    ArrayList<Double> percentages3 = new ArrayList<>();
+    BarGraphController BGC = new BarGraphController();
+    LineGraphController LGC = new LineGraphController();
+    AreaGraphController AC = new AreaGraphController();
+
+    BarChartModel barModel;
+    LineChartModel lineModel;
+    LineChartModel areaModel;
 
     public String getSex2() {
         return sex2;
@@ -112,25 +134,6 @@ public class TableController implements Serializable {
     public void setDataset3(String dataset3) {
         this.dataset3 = dataset3;
     }
-    String sex2 = "";
-    String race2 = "";
-    String dataset2 = "";
-    String sex3 = "";
-    String race3 = "";
-    String dataset3 = "";
-   
-    int minYear = 2000;
-    int maxYear = 2014;
-    String characteristic = "total";
-    
-    ArrayList<Double> percentages = new ArrayList<>();
-    ArrayList<Double> percentages2 = new ArrayList<>();
-    ArrayList<Double> percentages3 = new ArrayList<>();
-    BarGraphController BGC = new BarGraphController();
-    LineGraphController LGC = new LineGraphController();
-    AreaGraphController AC = new AreaGraphController();
-
-    BarChartModel barModel;
 
     public LineChartModel getLineModel() {
         return lineModel;
@@ -147,10 +150,6 @@ public class TableController implements Serializable {
     public void setAreaModel(LineChartModel areaModel) {
         this.areaModel = areaModel;
     }
-    LineChartModel lineModel;
-    LineChartModel areaModel;
-   
-    
 
     public BarChartModel getBarModel() {
         return barModel;
@@ -175,9 +174,7 @@ public class TableController implements Serializable {
     public void setCharacteristic(String characteristic) {
         this.characteristic = characteristic;
     }
-    
-    
-    
+
     public void generateBar() {
         //getAPIData();
         BGC.setMaxYear(maxYear);
@@ -193,8 +190,9 @@ public class TableController implements Serializable {
         barModel = BGC.getBarModel();
 
     }
-    public void generateLine()
-    {
+
+    public void generateLine() {
+        LGC.setMinYear(minYear);
         LGC.setMaxYear(maxYear);
         LGC.setPercentages(percentages);
         LGC.setGender(sex);
@@ -206,8 +204,9 @@ public class TableController implements Serializable {
         LGC.init();
         lineModel = LGC.getLineModel1();
     }
-    public void generateArea()
-    {
+
+    public void generateArea() {
+        AC.setMinYear(minYear);
         AC.setMaxYear(maxYear);
         AC.setPercentages(percentages);
         AC.setGender(sex);
@@ -219,7 +218,6 @@ public class TableController implements Serializable {
         AC.init();
         areaModel = AC.getAreaModel();
     }
-    
 
     public APIDataController getAdc() {
         return adc;
@@ -279,16 +277,16 @@ public class TableController implements Serializable {
         adc3.setMinYearFilter(String.valueOf(minYear));
         //adc.setRaceFilter(race);
         //adc.setCharacteristicFilter(characteristic);
-        adc.setCharacteristicFilter("Total");
-        adc2.setCharacteristicFilter("Total");
-        adc3.setCharacteristicFilter("Total");
-        
+        adc.setCharacteristicFilter(buildCharacteristicString(sex, race, dataset));
+        adc2.setCharacteristicFilter(buildCharacteristicString(sex2, race2, dataset2));
+        adc3.setCharacteristicFilter(buildCharacteristicString(sex3, race3, dataset3));
+
         switch (dataset) {
             case "High School Dropout Rates":
                 adc.highSchoolDropOutRates();
                 break;
             case "College Enrollment Rates":
-                
+
                 System.out.println("COLLEGE ENROLLEMENT RATES");
                 adc.collegeEnrollmentRates();
                 break;
@@ -313,7 +311,7 @@ public class TableController implements Serializable {
                 adc2.highSchoolDropOutRates();
                 break;
             case "College Enrollment Rates":
-                
+
                 System.out.println("COLLEGE ENROLLEMENT RATES");
                 adc2.collegeEnrollmentRates();
                 break;
@@ -338,7 +336,7 @@ public class TableController implements Serializable {
                 adc3.highSchoolDropOutRates();
                 break;
             case "College Enrollment Rates":
-                
+
                 System.out.println("COLLEGE ENROLLEMENT RATES");
                 adc3.collegeEnrollmentRates();
                 break;
@@ -358,30 +356,29 @@ public class TableController implements Serializable {
                 adc3.imprisonmentRates();
                 break;
         }
+        percentages.clear();
+        percentages2.clear();
+        percentages3.clear();
+        
         List<BaseRate> data = adc.getBaseRateList();
         List<BaseRate> data2 = adc2.getBaseRateList();
         List<BaseRate> data3 = adc3.getBaseRateList();
-        for(BaseRate i:data)
-        {
-            
+        for (BaseRate i : data) {
+
             percentages.add(i.getPercentage());
         }
-         for(BaseRate i:data2)
-        {
-            
+        for (BaseRate i : data2) {
+
             percentages2.add(i.getPercentage());
-            
+
         }
-          for(BaseRate i:data3)
-        {
-            
+        for (BaseRate i : data3) {
+
             percentages3.add(i.getPercentage());
-            
+
         }
         selectGraphType();
-        
-                
-        
+
     }
 
     public void selectGraphType() {
@@ -412,6 +409,128 @@ public class TableController implements Serializable {
                 break;
 
         }
+    }
+
+    private String buildCharacteristicString(String sex, String race, String dataset) {
+        StringBuilder result = new StringBuilder();
+        race.replaceAll(" ", "%20");
+
+        //Filtering for dataset 1
+        if (dataset.equals("High School Dropout Rates") || dataset.equals("College Graduation Rates")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(race);
+            } else {
+                result.append("Total%20-%20");
+                result.append(sex);
+                result.append("s,%20");
+                result.append(race);
+            }
+        } else if (dataset.equals("College Enrollment Rates")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total%20");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(race);
+            } else {
+                result.append("Total%20-%20");
+                result.append(sex);
+                result.append(",%20");
+                result.append(race);
+            }
+        } else if (dataset.equals("Rates Disconnected Youth")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(race);
+            } else {
+                if (sex.equals("Female")) {
+                    result.append("Total%20-%20");
+                    result.append(sex);
+                    result.append(",");
+                    result.append(race);
+                } else if (sex.equals("Male")) {
+                    result.append("Total%20-%20");
+                    result.append(sex);
+                    result.append(",%20");
+                    result.append(race);
+                }
+            }
+
+        } else if (dataset.equals("Imprisonment Rates")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                if (race.equals("White,%20non-Hispanic") || race.equals("Black,%20non-Hispanic") || race.equals("Hispanic")) {
+                    result.append(race);
+                } else {
+                    result.append("Other%20race,%20non-Hispanic");
+                }
+            } else {
+                result.append("Total%20-%20");
+                if (race.equals("White,%20non-Hispanic") || race.equals("Black,%20non-Hispanic") || race.equals("Hispanic")) {
+                    result.append(race);
+                } else {
+                    result.append("Other%20race,%20non-Hispanic");
+                }
+            }
+
+        } else if (dataset.equals("Labor Force Participation Rates")) {
+            if (sex.equals("All") && race.equals("All")) {
+                result.append("Total");
+            } else if (race.equals("All")) {
+                result.append("Total%20-%20");
+                result.append(sex);
+                result.append(",%20Age%2018-24");
+            } else if (sex.equals("All")) {
+                result.append("Total%20-%20");
+                result.append("Male,%20");
+                if (race.equals("White,%20non-Hispanic")) {
+                    result.append("White");
+                } else if (race.equals("Black,%20non-Hispanic")) {
+                    result.append("Black");
+                } else if (race.equals("Hispanic")) {
+                    result.append("Hispanic");
+                } else if (race.equals("Asian,%20non-Hispanic")) {
+                    result.append("Asian");
+                }
+
+                result.append(",%20Age%2018-24");
+            } else {
+                result.append("Total%20-%20");
+                result.append(sex);
+                result.append(",%20");
+                if (race.equals("White,%20non-Hispanic")) {
+                    result.append("White");
+                } else if (race.equals("Black,%20non-Hispanic")) {
+                    result.append("Black");
+                } else if (race.equals("Hispanic")) {
+                    result.append("Hispanic");
+                } else if (race.equals("Asian, %20non-Hispanic")) {
+                    result.append("Asian");
+                }
+                result.append(",%20Age%2018-24");
+
+            }
+        }
+
+        return result.toString();
     }
 
 }

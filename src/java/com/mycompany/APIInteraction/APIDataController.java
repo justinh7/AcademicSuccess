@@ -262,7 +262,7 @@ public class APIDataController implements Serializable {
                         String percentage;
                         if (baseUrl == null ? urlImprisonmentRates == null : baseUrl.equals(urlImprisonmentRates)) {
                             String ratePerHundredThousand = jsonObject.optString("Rate per 100,000", "");
-                            percentage = Integer.parseInt(ratePerHundredThousand) / 100000.00 + "";
+                            percentage = Integer.parseInt(ratePerHundredThousand) / 100000.00 * 100 + "";
                         } else {
                             percentage = jsonObject.optString("Percentage", "");
                         }
@@ -286,8 +286,11 @@ public class APIDataController implements Serializable {
                             year = jsonObject.optString("Year", "");
                         }
                         
-
-                        double countAsDouble = Double.parseDouble(count);
+                        double countAsDouble = 0;
+                        if (count != null && !count.equals("")) {
+                            countAsDouble = Double.parseDouble(count);
+                        }
+                        
                         double percentageAsDouble = Double.parseDouble(percentage);
                         int yearAsInt = Integer.parseInt(year);
                         

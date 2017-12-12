@@ -20,7 +20,7 @@ public class AreaGraphController implements Serializable {
     ArrayList<Double> percentages2;
     ArrayList<Double> percentages3;
     int minYear = 2000;
-    int maxYear = 2015;
+    int maxYear = 2014;
     String gender = "";
     String gender2 = "";
     String title = "";
@@ -119,7 +119,7 @@ public class AreaGraphController implements Serializable {
         type.setFill(true);
         type.setLabel("Data Selection 1");
         if (!percentages.isEmpty()) {
-            for (int i = minYear; i <= maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages.size(); i++) {
                 type.set(String.valueOf(i), percentages.get(i - minYear));
             }
         }
@@ -128,7 +128,7 @@ public class AreaGraphController implements Serializable {
         type2.setFill(true);
         type2.setLabel("Data Selection 1");
         if (!percentages2.isEmpty()) {
-            for (int i = minYear; i <= maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages2.size(); i++) {
                 type2.set(String.valueOf(i), percentages2.get(i - minYear));
             }
         }
@@ -138,7 +138,7 @@ public class AreaGraphController implements Serializable {
         type3.setFill(true);
         type3.setLabel("Data Selection 1");
         if (!percentages3.isEmpty()) {
-            for (int i = minYear; i <= maxYear; i++) {
+            for (int i = minYear; i <= maxYear && (i - minYear) < percentages3.size(); i++) {
                 type3.set(String.valueOf(i), percentages3.get(i - minYear));
             }
         }

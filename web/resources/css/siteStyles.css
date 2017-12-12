@@ -518,3 +518,8 @@ a:visited{
     align-content: center;
         margin:0 auto; /*center-aligned*/
 }
+
+#graphWindow {
+    background-color: #C6A06C;
+    color: white;
+}
