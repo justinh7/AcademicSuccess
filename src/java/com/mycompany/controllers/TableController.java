@@ -431,7 +431,7 @@ public class TableController implements Serializable {
 
     private String buildCharacteristicString(String sex, String race, String dataset) {
         StringBuilder result = new StringBuilder();
-        race.replaceAll(" ", "%20");
+        race = race.replaceAll(" ", "%20");
 
         //Filtering for dataset 1
         if (dataset.equals("High School Dropout Rates") || dataset.equals("College Graduation Rates")) {
