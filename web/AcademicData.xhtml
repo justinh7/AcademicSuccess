@@ -30,7 +30,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                 <h:outputLabel id="form-error-message" class="errorMessages" value="#{apiDataController.statusMessage}"/>
 
                 <h:form id="DataListForm">
-                    <p:panel header="Data Table">
+                    <p:panel header="#{apiDataController.dataType}">
                         <p:dataTable id="datalist" value="#{apiDataController.baseRateList}" var="baseRateList"
                                      paginator="true"
                                      rowKey="#{baseRateList.id}"
@@ -99,7 +99,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
                             <!-- PrimeFaces data table's footer -->
                             <f:facet name="footer">
-                               <p:selectOneMenu id="dataset" value="#{apiDataController.dataType}">
+                                <p:selectOneMenu id="dataset" value="#{apiDataController.dataType}">
                                     <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
                                     <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
                                     <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
@@ -107,6 +107,8 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                     <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
                                     <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
                                 </p:selectOneMenu>
+                                
+                                <br />
                                 
                                 <!-- PrimeFaces button 'Refresh' -->
                                 <p:commandButton id="refreshButton" icon="ui-icon-refresh" value = "Refresh" styleClass="commandButton"
