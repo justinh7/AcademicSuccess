@@ -60,7 +60,7 @@ public class TableController implements Serializable {
     AccountManager acc;
     @Inject
     AccountDataController aControl;
-    
+
     private com.mycompany.APIInteraction.APIDataController adc = new APIDataController();
 
     private com.mycompany.APIInteraction.APIDataController adc2 = new APIDataController();
@@ -86,7 +86,7 @@ public class TableController implements Serializable {
     private int minYear = 2000;
     private int maxYear = 2014;
     private String characteristic = "total";
-    
+
     private String title = "Academic Success Graph";
 
     private ArrayList<Double> percentages = new ArrayList<>();
@@ -132,7 +132,6 @@ public class TableController implements Serializable {
         this.percentages3 = percentages3;
     }
 
-    
     public boolean isShowDataset1() {
         return showDataset1;
     }
@@ -627,19 +626,17 @@ public class TableController implements Serializable {
 
         return result.toString();
     }
-    
+
     public void save() {
         if (!acc.isLoggedIn()) {
             String statusMessage = "Cannot Save the Graph since No User is Signed In!";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-        }
-        else if (!showDataset1 && !showDataset2 && !showDataset3) {
+        } else if (!showDataset1 && !showDataset2 && !showDataset3) {
             String statusMessage = "Cannot Save the Graph since No graph is selected!";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-        }
-        else {
+        } else {
             String saveData = "";
             String saveRace = "";
             String saveSex = "";
@@ -673,6 +670,30 @@ public class TableController implements Serializable {
             aControl.setSelected(accGraph);
             aControl.create();
         }
+    }
+
+    public void clear() {
+        race = "All";
+        sex = "All";
+        dataset = "High School Dropout Rates";
+        showDataset1 = false;
+        graphType = "";
+
+        sex2 = "All";
+        race2 = "All";
+        dataset2 = "High School Dropout Rates";
+        showDataset2 = false;
+
+        sex3 = "All";
+        race3 = "All";
+        dataset3 = "High School Dropout Rates";
+        showDataset3 = false;
+
+        minYear = 2000;
+        maxYear = 2014;
+        characteristic = "total";
+
+        title = "Academic Success Graph";
     }
 
 }

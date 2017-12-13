@@ -492,11 +492,11 @@ if content overflows an element's box.
     margin-top: 10px !important;
 }
 
-a:link{
+a.headerLink:link{
     color:white
 }
 
-a:visited{
+a.headerLink:visited{
     color:white
 }
 
