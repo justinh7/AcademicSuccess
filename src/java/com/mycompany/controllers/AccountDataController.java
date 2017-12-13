@@ -1,9 +1,11 @@
 package com.mycompany.controllers;
 
 import com.mycompany.EntityBeans.AccountData;
+import com.mycompany.EntityBeans.User;
 import com.mycompany.controllers.util.JsfUtil;
 import com.mycompany.controllers.util.JsfUtil.PersistAction;
 import com.mycompany.FacadeBeans.AccountDataFacade;
+import com.mycompany.FacadeBeans.UserFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +28,13 @@ public class AccountDataController implements Serializable {
 
     @Inject
     TableController tableController;
-    
+
+    @EJB
+    private UserFacade userFacade;
+
+    @EJB
+    private AccountDataFacade accountDataFacade;
+
     @EJB
     private com.mycompany.FacadeBeans.AccountDataFacade ejbFacade;
     private List<AccountData> items = null;
@@ -79,9 +87,18 @@ public class AccountDataController implements Serializable {
     }
 
     public List<AccountData> getItems() {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
+
+        String usernameOfSignedInUser = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("username");
+
+        // Obtain the object reference of the signed-in user
+        User signedInUser = userFacade.findByUsername(usernameOfSignedInUser);
+
+        // Obtain the id (primary key in the database) of the signedInUser object
+        Integer userId = signedInUser.getId();
+
+        // Obtain only those files from the database that belong to the signed-in user
+        items = accountDataFacade.findUserFilesByUserID(userId);
         return items;
     }
 
@@ -91,13 +108,11 @@ public class AccountDataController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
-                }
-                else {
+                } else {
                     getFacade().remove(selected);
                 }
                 JsfUtil.addSuccessMessage(successMessage);
-            }
-            catch (EJBException ex) {
+            } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
                 if (cause != null) {
@@ -105,12 +120,10 @@ public class AccountDataController implements Serializable {
                 }
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
-                }
-                else {
+                } else {
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
@@ -162,24 +175,23 @@ public class AccountDataController implements Serializable {
             if (object instanceof AccountData) {
                 AccountData o = (AccountData) object;
                 return getStringKey(o.getId());
-            }
-            else {
+            } else {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), AccountData.class.getName()});
                 return null;
             }
         }
 
     }
-    
+
     public String show() {
         String[] sexString = selected.getSexFilter().split(" & ");
         String[] raceString = selected.getRaceFilter().split(" & ");
         String[] dataString = selected.getDataset().split(" & ");
-        tableController.setTitle(selected.getTitle());        
+        tableController.setTitle(selected.getTitle());
         tableController.setGraphType(selected.getGraphType());
         tableController.setMinYear(Integer.parseInt(selected.getMinYear()));
         tableController.setMaxYear(Integer.parseInt(selected.getMaxYear()));
-        
+
         tableController.setDataset(dataString[0]);
         tableController.setRace(raceString[0]);
         tableController.setSex(sexString[0]);
@@ -192,9 +204,9 @@ public class AccountDataController implements Serializable {
             tableController.setSex2(sexString[1]);
             tableController.setShowDataset2(true);
         }
-        
+
         if (dataString.length == 3) {
-            tableController.setDataset3(dataString[2]);     
+            tableController.setDataset3(dataString[2]);
             tableController.setRace3(raceString[2]);
             tableController.setSex3(sexString[2]);
             tableController.setShowDataset3(true);

@@ -22,20 +22,20 @@ public final class Constants {
         Therefore, we use the following two external directories 
         for the storage and retrieval of user's files.
      */
-    public static final String FILES_ABSOLUTE_PATH = "C:\\Users\\khoal\\CloudStorage\\FileStorage\\";
-    public static final String PHOTOS_ABSOLUTE_PATH = "C:\\Users\\khoal\\CloudStorage\\PhotoStorage\\";
+    public static final String FILES_ABSOLUTE_PATH = "/home/cloudsd/Team5-FileStorage/CloudStorage/FileStorage/";
+    public static final String PHOTOS_ABSOLUTE_PATH = "/home/cloudsd/Team5-FileStorage/CloudStorage/PhotoStorage/";
 
     /*
     In glassfish-web.xml file, we designated the '/CloudStorage/' directory as the
     Alternate Document Root directory with the following statement:
         
-        <property name="alternatedocroot_1" value="from=/CloudStorage/* dir=/Users/Le" />
+        <property name="alternatedocroot_1" value="from=/CloudStorage/* dir=/Users/Balci" />
     
-    Relative path is defined with respect to the Alternate Document Root starting with 'CloudStorage'.
+    Relative path is defined with re spect to the Alternate Document Root starting with 'CloudStorage'.
      */
-    public static final String FILES_RELATIVE_PATH = "CloudStorage\\FileStorage\\";
-    public static final String PHOTOS_RELATIVE_PATH = "CloudStorage\\FileStorage\\";
-    public static final String DEFAULT_PHOTO_RELATIVE_PATH = "C:\\Users\\khoal\\CloudStorage\\defaultUserPhoto.png";
+    public static final String FILES_RELATIVE_PATH = "CloudStorage/FileStorage/";
+    public static final String PHOTOS_RELATIVE_PATH = "CloudStorage/PhotoStorage/";
+    public static final String DEFAULT_PHOTO_RELATIVE_PATH = "CloudStorage/PhotoStorage/defaultUserPhoto.png";
 
     /* Temporary filename */
     public static final String TEMP_FILE = "tmp_file";

@@ -36,7 +36,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "AccountData.findBySexFilter", query = "SELECT a FROM AccountData a WHERE a.sexFilter = :sexFilter")
     , @NamedQuery(name = "AccountData.findByMinYear", query = "SELECT a FROM AccountData a WHERE a.minYear = :minYear")
     , @NamedQuery(name = "AccountData.findByMaxYear", query = "SELECT a FROM AccountData a WHERE a.maxYear = :maxYear")
-    , @NamedQuery(name = "AccountData.findByGraphType", query = "SELECT a FROM AccountData a WHERE a.graphType = :graphType")})
+    , @NamedQuery(name = "AccountData.findByGraphType", query = "SELECT a FROM AccountData a WHERE a.graphType = :graphType")
+    , @NamedQuery(name = "AccountData.findAccountDataByUserId", query = "SELECT u FROM AccountData u WHERE u.userId.id = :userId")
+})
+
 public class AccountData implements Serializable {
 
     private static final long serialVersionUID = 1L;
