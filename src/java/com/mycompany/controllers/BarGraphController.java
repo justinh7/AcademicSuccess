@@ -263,7 +263,7 @@ public class BarGraphController implements Serializable {
         Axis yAxis = barModel.getAxis(AxisType.Y);
         yAxis.setLabel("Percentage");
         yAxis.setMin(0);
-        yAxis.setMax(100);
+        //yAxis.setMax(100);
     }
     /*
     private void createHorizontalBarModel() {

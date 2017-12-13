@@ -239,7 +239,7 @@ public class AreaGraphController implements Serializable {
         Axis yAxis = areaModel.getAxis(AxisType.Y);
         yAxis.setLabel("Percentages");
         yAxis.setMin(0);
-        yAxis.setMax(100);
+        //yAxis.setMax(100);
     }
 
 }

@@ -187,7 +187,7 @@ public class LineGraphController implements Serializable {
         lineModel1.getAxes().put(AxisType.X, new CategoryAxis("Year"));
         Axis yAxis = lineModel1.getAxis(AxisType.Y);
         yAxis.setMin(0);
-        yAxis.setMax(100);
+        //yAxis.setMax(100);
         yAxis.setLabel("Percentage");
 
         /*lineModel2 = initCategoryModel();
