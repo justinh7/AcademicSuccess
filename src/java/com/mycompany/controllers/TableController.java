@@ -59,7 +59,7 @@ public class TableController implements Serializable {
     com.mycompany.APIInteraction.APIDataController adc2 = new APIDataController();
 
     com.mycompany.APIInteraction.APIDataController adc3 = new APIDataController();
-    ;
+    
     String race = "All";
     String sex = "All";
     String dataset = "High School Dropout Rates";
@@ -520,30 +520,30 @@ public class TableController implements Serializable {
                 result.append("Total%20-%20");
                 result.append("Male,%20");
                 if (race.equals("White,%20non-Hispanic")) {
-                    result.append("White");
+                    result.append("White,%20");
                 } else if (race.equals("Black,%20non-Hispanic")) {
-                    result.append("Black");
+                    result.append("Black,%20");
                 } else if (race.equals("Hispanic")) {
-                    result.append("Hispanic");
+                    result.append("Hispanic,%20");
                 } else if (race.equals("Asian,%20non-Hispanic")) {
-                    result.append("Asian");
+                    result.append("Asian,%20");
                 }
 
-                result.append(",%20Age%2018-24");
+                result.append("Age%2018-24");
             } else {
                 result.append("Total%20-%20");
                 result.append(sex);
                 result.append(",%20");
                 if (race.equals("White,%20non-Hispanic")) {
-                    result.append("White");
+                    result.append("White,%20");
                 } else if (race.equals("Black,%20non-Hispanic")) {
-                    result.append("Black");
+                    result.append("Black,%20");
                 } else if (race.equals("Hispanic")) {
-                    result.append("Hispanic");
+                    result.append("Hispanic,%20");
                 } else if (race.equals("Asian, %20non-Hispanic")) {
-                    result.append("Asian");
+                    result.append("Asian,%20");
                 }
-                result.append(",%20Age%2018-24");
+                result.append("Age%2018-24");
 
             }
         }

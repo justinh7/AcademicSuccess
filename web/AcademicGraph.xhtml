@@ -32,150 +32,176 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
 
                 <div align="center">
-                    <div id="graphWindow" style="height: 500px; width:800px; padding: 10px ">
-                        <c:if test="${tableController.barModel != null}">
-                            <p:chart type="bar" model="#{tableController.barModel}" style="height:500px; width:800px"/>
-                        </c:if>
-                        <c:if test="${tableController.lineModel != null}">
-                            <p:chart type="line" model="#{tableController.lineModel}" style="height:500px; width:800px;"/>
-                        </c:if>
-
-                        <c:if test="${tableController.areaModel != null}">
-                            <p:chart type="line" model="#{tableController.areaModel}" style="height:500px; width:800px"/>
-                        </c:if>
-                    </div>
-
-                    <p:accordionPanel style="width: 1000px; padding-top: 50px" id="accordianPanel" multiple="true" >
-
-                        <p:tab title="Overall Settings" >
-                            <h:panelGrid columns="2" >
+                    <h:panelGrid columns="2" >
 
 
-                                <p:outputLabel for="" value="Type of Graph" />
-                                <p:selectOneMenu id="graph" value="${tableController.graphType}">
-                                    <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
-                                    <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
-                                    <f:selectItem itemLabel="Area Graph" itemValue="Area Graph" />
-                                </p:selectOneMenu>
-
-                                <h:outputText id="displayRange1" value="Between 2000 and 2014" style="padding-right:10px"/>
-                                <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2014" display="displayRange1" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
-                                <h:inputHidden id="txt61" value="${tableController.minYear}" />
-                                <h:inputHidden id="txt71" value="${tableController.maxYear}" />
-                            </h:panelGrid>
-
-                        </p:tab>
-
-                        <p:tab title="Dataset Selection 1" >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset1" value="${tableController.dataset}">
-                                    <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
-                                    <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
-                                    <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
-                                    <f:selectItem itemLabel="Rates of Disconnected Youth" itemValue="Rates Disconnected Youth" />
-                                    <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
-                                    <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
-                                </p:selectOneMenu>
-
-                                <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex1" value="${tableController.sex}">
-                                    <f:selectItem itemLabel="All" itemValue="All" />
-                                    <f:selectItem itemLabel="Male" itemValue="Male" />
-                                    <f:selectItem itemLabel="Female" itemValue="Female" />
-                                </p:selectOneMenu>
-
-                                <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race1" value="${tableController.race}">
-                                    <f:selectItem itemLabel="All" itemValue="All" />
-                                    <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
-                                    <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
-                                    <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
-                                    <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
-                                    <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
-                                    <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
-                                    <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
-                                </p:selectOneMenu>
-
-                            </h:panelGrid>
-
-                        </p:tab>
-
-                        <p:tab title="Dataset Selection 2" >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset2" value="${tableController.dataset2}">
-                                    <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
-                                    <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
-                                    <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
-                                    <f:selectItem itemLabel="Rates of Disconnected Youth" itemValue="Rates Disconnected Youth" />
-                                    <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
-                                    <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
-                                </p:selectOneMenu>
-
-                                <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex2" value="${tableController.sex2}">
-                                    <f:selectItem itemLabel="All" itemValue="All" />
-                                    <f:selectItem itemLabel="Male" itemValue="Male" />
-                                    <f:selectItem itemLabel="Female" itemValue="Female" />
-                                </p:selectOneMenu>
-
-                                <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race2" value="${tableController.race2}">
-                                    <f:selectItem itemLabel="All" itemValue="All" />
-                                    <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
-                                    <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
-                                    <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
-                                    <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
-                                    <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
-                                    <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
-                                    <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
-                                </p:selectOneMenu>
-
-                            </h:panelGrid>
-
-                        </p:tab>
-
-                        <p:tab title="Dataset Selection 3" >
-                            <h:panelGrid columns="2" >
-                                <p:outputLabel for="" value="Type of Dataset" />
-                                <p:selectOneMenu id="dataset3" value="${tableController.dataset3}">
-                                    <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
-                                    <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
-                                    <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
-                                    <f:selectItem itemLabel="Rates of Disconnected Youth" itemValue="Rates Disconnected Youth" />
-                                    <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
-                                    <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
-                                </p:selectOneMenu>
 
 
-                                <p:outputLabel for="" value="Sex" />
-                                <p:selectOneMenu id="sex3" value="${tableController.sex3}">
-                                    <f:selectItem itemLabel="All" itemValue="All" />
-                                    <f:selectItem itemLabel="Male" itemValue="Male" />
-                                    <f:selectItem itemLabel="Female" itemValue="Female" />
-                                </p:selectOneMenu>
+                        <p:panel style="width: 450px; height: 700px">
 
-                                <p:outputLabel for="" value="Race" />
-                                <p:selectOneMenu id="race3" value="${tableController.race3}">
-                                    <f:selectItem itemLabel="All" itemValue="All" />
-                                    <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
-                                    <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
-                                    <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
-                                    <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
-                                    <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
-                                    <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
-                                    <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
-                                </p:selectOneMenu>
 
-                            </h:panelGrid>
+                            <p:fieldset legend="Overall Settings" >
+                                <h:panelGrid columns="2" >
 
-                        </p:tab>
 
-                    </p:accordionPanel>
+                                    <p:outputLabel for="" value="Type of Graph" />
+                                    <p:selectOneMenu id="graph" value="${tableController.graphType}">
+                                        <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
+                                        <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
+                                        <f:selectItem itemLabel="Area Graph" itemValue="Area Graph" />
+                                    </p:selectOneMenu>
 
-                    <p:commandButton id="submit" value="Display Graph"  action="${tableController.getAPIData()}"
-                                     ajax="false" icon="ui-icon-calculator" />
+                                    <h:outputText id="displayRange1" value="Between 2000 and 2014" style="padding-right:10px"/>
+                                    <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2014" display="displayRange1" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
+                                    <h:inputHidden id="txt61" value="${tableController.minYear}" />
+                                    <h:inputHidden id="txt71" value="${tableController.maxYear}" />
+                                </h:panelGrid>
+
+                            </p:fieldset>
+                        <br />
+                        <br />
+
+                            <p:fieldset legend="Dataset Selection 1" >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel for="" value="Type of Dataset" />
+                                    <p:selectOneMenu id="dataset1" value="${tableController.dataset}">
+                                        <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
+                                        <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
+                                        <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
+                                        <f:selectItem itemLabel="Rates of Disconnected Youth" itemValue="Rates Disconnected Youth" />
+                                        <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
+                                        <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="" value="Sex" />
+                                    <p:selectOneMenu id="sex1" value="${tableController.sex}">
+                                        <f:selectItem itemLabel="All" itemValue="All" />
+                                        <f:selectItem itemLabel="Male" itemValue="Male" />
+                                        <f:selectItem itemLabel="Female" itemValue="Female" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="" value="Race" />
+                                    <p:selectOneMenu id="race1" value="${tableController.race}">
+                                        <f:selectItem itemLabel="All" itemValue="All" />
+                                        <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
+                                        <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
+                                        <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
+                                        <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
+                                        <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
+                                        <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
+                                        <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+
+                            </p:fieldset>
+                        
+                        <br />
+                        <br />
+
+                            <p:fieldset legend="Dataset Selection 2" >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel for="" value="Type of Dataset" />
+                                    <p:selectOneMenu id="dataset2" value="${tableController.dataset2}">
+                                        <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
+                                        <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
+                                        <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
+                                        <f:selectItem itemLabel="Rates of Disconnected Youth" itemValue="Rates Disconnected Youth" />
+                                        <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
+                                        <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="" value="Sex" />
+                                    <p:selectOneMenu id="sex2" value="${tableController.sex2}">
+                                        <f:selectItem itemLabel="All" itemValue="All" />
+                                        <f:selectItem itemLabel="Male" itemValue="Male" />
+                                        <f:selectItem itemLabel="Female" itemValue="Female" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="" value="Race" />
+                                    <p:selectOneMenu id="race2" value="${tableController.race2}">
+                                        <f:selectItem itemLabel="All" itemValue="All" />
+                                        <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
+                                        <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
+                                        <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
+                                        <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
+                                        <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
+                                        <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
+                                        <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+
+                            </p:fieldset>
+                        
+                        <br />
+                        <br />
+
+                            <p:fieldset legend="Dataset Selection 3" >
+                                <h:panelGrid columns="2" >
+                                    <p:outputLabel for="" value="Type of Dataset" />
+                                    <p:selectOneMenu id="dataset3" value="${tableController.dataset3}">
+                                        <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
+                                        <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
+                                        <f:selectItem itemLabel="College Graduation Rates" itemValue="College Graduation Rates" />
+                                        <f:selectItem itemLabel="Rates of Disconnected Youth" itemValue="Rates Disconnected Youth" />
+                                        <f:selectItem itemLabel="Labor Force Participation Rates" itemValue="Labor Force Participation Rates"/>
+                                        <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
+                                    </p:selectOneMenu>
+
+
+                                    <p:outputLabel for="" value="Sex" />
+                                    <p:selectOneMenu id="sex3" value="${tableController.sex3}">
+                                        <f:selectItem itemLabel="All" itemValue="All" />
+                                        <f:selectItem itemLabel="Male" itemValue="Male" />
+                                        <f:selectItem itemLabel="Female" itemValue="Female" />
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="" value="Race" />
+                                    <p:selectOneMenu id="race3" value="${tableController.race3}">
+                                        <f:selectItem itemLabel="All" itemValue="All" />
+                                        <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
+                                        <f:selectItem itemLabel="Black" itemValue="Black, non-Hispanic" />
+                                        <f:selectItem itemLabel="Hispanic" itemValue="Hispanic" />
+                                        <f:selectItem itemLabel="Asian" itemValue="Asian, non-Hispanic" />
+                                        <f:selectItem itemLabel="Pacific Islander" itemValue="Pacific Islander, non-Hispanic" />
+                                        <f:selectItem itemLabel="American Indian/Alaska Native" itemValue="American Indian/Alaska Native, non-Hispanic" />
+                                        <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+
+                            </p:fieldset>
+                        
+                        <br />
+                        <br />
+
+
+                            <p:commandButton id="submit" value="Display Graph"  action="${tableController.getAPIData()}"
+                                             ajax="false" icon="ui-icon-calculator" />
+
+                        </p:panel>
+
+                        <p:panel style="height: 700px">
+                            <div id="graphWindow" style="height: 700px; width:800px; padding: 10px ">
+                                <c:if test="${tableController.barModel != null}">
+                                    <p:chart type="bar" model="#{tableController.barModel}" style="height:600px; width:800px"/>
+                                </c:if>
+                                <c:if test="${tableController.lineModel != null}">
+                                    <p:chart type="line" model="#{tableController.lineModel}" style="height:600px; width:800px;"/>
+                                </c:if>
+
+                                <c:if test="${tableController.areaModel != null}">
+                                    <p:chart type="line" model="#{tableController.areaModel}" style="height:600px; width:800px"/>
+                                </c:if>
+                            </div>
+
+                        </p:panel>
+
+
+
+                    </h:panelGrid>
+
                 </div>
 
             </h:form>
