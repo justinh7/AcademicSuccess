@@ -205,6 +205,7 @@ public class LineGraphController implements Serializable {
 
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
+        model.setAnimate(true);
 
         String label1 = dataset + " ";
         String label2 = dataset2 + " ";

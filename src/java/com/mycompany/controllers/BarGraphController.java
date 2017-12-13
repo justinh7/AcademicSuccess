@@ -184,6 +184,7 @@ public class BarGraphController implements Serializable {
      */
     private BarChartModel initBarModel() {
         BarChartModel model = new BarChartModel();
+        model.setAnimate(true);
 
         ChartSeries type = new ChartSeries();
         ChartSeries type2 = new ChartSeries();

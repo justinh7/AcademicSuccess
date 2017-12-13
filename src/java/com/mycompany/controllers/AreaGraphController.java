@@ -166,6 +166,7 @@ public class AreaGraphController implements Serializable {
 
     private void createAreaModel() {
         areaModel = new LineChartModel();
+        areaModel.setAnimate(true);
 
         LineChartSeries type = new LineChartSeries();
         LineChartSeries type2 = new LineChartSeries();
