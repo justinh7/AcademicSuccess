@@ -18,11 +18,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 @Named("accountDataController")
 @SessionScoped
 public class AccountDataController implements Serializable {
 
+    @Inject
+    TableController tableController;
+    
     @EJB
     private com.mycompany.FacadeBeans.AccountDataFacade ejbFacade;
     private List<AccountData> items = null;
@@ -165,6 +169,38 @@ public class AccountDataController implements Serializable {
             }
         }
 
+    }
+    
+    public String show() {
+        String[] sexString = selected.getSexFilter().split(" & ");
+        String[] raceString = selected.getRaceFilter().split(" & ");
+        String[] dataString = selected.getDataset().split(" & ");
+        tableController.setTitle(selected.getTitle());        
+        tableController.setGraphType(selected.getGraphType());
+        tableController.setMinYear(Integer.parseInt(selected.getMinYear()));
+        tableController.setMaxYear(Integer.parseInt(selected.getMaxYear()));
+        
+        tableController.setDataset(dataString[0]);
+        tableController.setRace(raceString[0]);
+        tableController.setSex(sexString[0]);
+        tableController.setShowDataset1(true);
+        tableController.setShowDataset2(false);
+        tableController.setShowDataset3(false);
+        if (dataString.length >= 1) {
+            tableController.setDataset2(dataString[1]);
+            tableController.setRace2(raceString[1]);
+            tableController.setSex2(sexString[1]);
+            tableController.setShowDataset2(true);
+        }
+        
+        if (dataString.length == 3) {
+            tableController.setDataset3(dataString[2]);     
+            tableController.setRace3(raceString[2]);
+            tableController.setSex3(sexString[2]);
+            tableController.setShowDataset3(true);
+        }
+        tableController.getAPIData();
+        return "AcademicGraph?faces-redirect=true";
     }
 
 }

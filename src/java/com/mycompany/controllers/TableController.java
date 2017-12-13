@@ -18,6 +18,8 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import com.mycompany.APIInteraction.BaseRate;
+import com.mycompany.EntityBeans.AccountData;
+import com.mycompany.managers.AccountManager;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -54,6 +56,11 @@ as long as the user's established HTTP session is alive.
  */
 public class TableController implements Serializable {
 
+    @Inject
+    AccountManager acc;
+    @Inject
+    AccountDataController aControl;
+    
     private com.mycompany.APIInteraction.APIDataController adc = new APIDataController();
 
     private com.mycompany.APIInteraction.APIDataController adc2 = new APIDataController();
@@ -619,6 +626,53 @@ public class TableController implements Serializable {
         }
 
         return result.toString();
+    }
+    
+    public void save() {
+        if (!acc.isLoggedIn()) {
+            String statusMessage = "Cannot Save the Graph since No User is Signed In!";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+        }
+        else if (!showDataset1 && !showDataset2 && !showDataset3) {
+            String statusMessage = "Cannot Save the Graph since No graph is selected!";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(statusMessage));
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+        }
+        else {
+            String saveData = "";
+            String saveRace = "";
+            String saveSex = "";
+            if (showDataset1) {
+                saveData += dataset;
+                saveRace += race;
+                saveSex += sex;
+            }
+            if (showDataset2) {
+                if (showDataset1) {
+                    saveData += " & ";
+                    saveRace += " & ";
+                    saveSex += " & ";
+                }
+                saveData += dataset2;
+                saveRace += race2;
+                saveSex += sex2;
+            }
+            if (showDataset3) {
+                if (showDataset1 || showDataset2) {
+                    saveData += " & ";
+                    saveRace += " & ";
+                    saveSex += " & ";
+                }
+                saveData += dataset3;
+                saveRace += race3;
+                saveSex += sex3;
+            }
+            AccountData accGraph = new AccountData(0, title, saveData, saveRace, saveSex, String.valueOf(minYear), String.valueOf(maxYear), graphType);
+            accGraph.setUserId(acc.getSelected());
+            aControl.setSelected(accGraph);
+            aControl.create();
+        }
     }
 
 }

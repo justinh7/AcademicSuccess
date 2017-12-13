@@ -141,8 +141,8 @@ Copyright © 2017 Khoa Le. All rights reserved.
                             <f:facet name="footer">                
 
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" 
-                                                 styleClass="commandButton" update=":AccountDataViewForm" 
-                                                 oncomplete="PF('AccountDataViewDialog').show()" 
+                                                 styleClass="commandButton" 
+                                                 action="#{accountDataController.show}" 
                                                  disabled="#{empty accountDataController.selected}"/>
                                 <!-- **********************************************
                                 Display a Confirmation dialog for the DELETE button
@@ -152,7 +152,7 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                                  update=":growl,datalist" disabled="#{empty accountDataController.selected}">
 
                                     <p:confirm header="Confirmation" 
-                                               message="Are you sure you want to permanently delete the selected video from the database?" 
+                                               message="Are you sure you want to permanently delete the selected graph from the database?" 
                                                icon="ui-icon-alert" />
                                 </p:commandButton>
 
@@ -177,10 +177,6 @@ Copyright © 2017 Khoa Le. All rights reserved.
                     </p:panel>
                 </h:form>
             </div>
-
-
-            <!-- Clicking the Create button displays the included Create.xhtml file in a dialog box on top of this page. -->
-            <ui:include src="AcademicGraph.xhtml"/>
 
         </ui:define>
 

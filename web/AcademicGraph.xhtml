@@ -216,6 +216,26 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                     Imprisonment rates of 18- to 24-year-olds sentenced to more than 1 year under the jurisdiction of state correctional authorities per 100,000 by sex and race/ethnicity, 2000–2012.
                                 </p:fieldset>
                             </p:dialog> 
+                            
+                            <p:commandButton id="save" value="Save Graph"  actionListener="#{tableController.save}"
+                                             icon="ui-icon-circle-plus" >
+                                <p:confirm header="Confirmation" 
+                                        message="Are you sure you want save the graph to your account?" 
+                                        icon="ui-icon-alert" />
+                            </p:commandButton>
+                            
+                            <p:confirmDialog id="saveConfirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                <div align="center">
+                                    <!-- The value of the first button listed below will be shown as 
+                                    highlighted (default action) when displayed -->
+                                    <p:commandButton value="No" type="button" 
+                                                     styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    &nbsp;
+                                    <p:commandButton value="Yes" type="button" 
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
+                                    </p:commandButton>
+                                </div>
+                            </p:confirmDialog>
 
                         </p:panel>
 
