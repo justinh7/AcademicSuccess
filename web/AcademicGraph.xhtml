@@ -37,14 +37,15 @@ Copyright © 2017 Khoa Le. All rights reserved.
 
 
 
-                        <p:panel style="width: 450px; height: 700px">
+                        <p:panel style="width: 450px; height: 750px">
 
 
                             <p:fieldset legend="Overall Settings" >
                                 <h:panelGrid columns="2" >
+                                    <h:outputLabel for="title" value="Title" />
+                                    <p:inputText id="title" value="${tableController.title}"/>
 
-
-                                    <p:outputLabel for="" value="Type of Graph" />
+                                    <p:outputLabel for="graph" value="Type of Graph" />
                                     <p:selectOneMenu id="graph" value="${tableController.graphType}">
                                         <f:selectItem itemLabel="Line Graph" itemValue="Line Graph" />
                                         <f:selectItem itemLabel="Bar Graph" itemValue="Bar Graph" />
@@ -55,15 +56,18 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                     <p:slider for="txt61,txt71" minValue = "2000" maxValue = "2014" display="displayRange1" style="width: 200px;" range="true" displayTemplate="Between {min} and {max}" />
                                     <h:inputHidden id="txt61" value="${tableController.minYear}" />
                                     <h:inputHidden id="txt71" value="${tableController.maxYear}" />
+
+
                                 </h:panelGrid>
 
+
+
                             </p:fieldset>
-                        <br />
-                        <br />
+                            <br />
 
                             <p:fieldset legend="Dataset Selection 1" >
                                 <h:panelGrid columns="2" >
-                                    <p:outputLabel for="" value="Type of Dataset" />
+                                    <p:outputLabel for="dataset1" value="Type of Dataset" />
                                     <p:selectOneMenu id="dataset1" value="${tableController.dataset}">
                                         <f:selectItem itemLabel="High School Dropout Rates" itemValue="High School Dropout Rates" />
                                         <f:selectItem itemLabel="College Enrollment Rates" itemValue="College Enrollment Rates" />
@@ -73,14 +77,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                         <f:selectItem itemLabel="Imprisonment Rates" itemValue="Imprisonment Rates" />
                                     </p:selectOneMenu>
 
-                                    <p:outputLabel for="" value="Sex" />
+                                    <p:outputLabel for="sex1" value="Sex" />
                                     <p:selectOneMenu id="sex1" value="${tableController.sex}">
                                         <f:selectItem itemLabel="All" itemValue="All" />
                                         <f:selectItem itemLabel="Male" itemValue="Male" />
                                         <f:selectItem itemLabel="Female" itemValue="Female" />
                                     </p:selectOneMenu>
 
-                                    <p:outputLabel for="" value="Race" />
+                                    <p:outputLabel for="race1" value="Race" />
                                     <p:selectOneMenu id="race1" value="${tableController.race}">
                                         <f:selectItem itemLabel="All" itemValue="All" />
                                         <f:selectItem itemLabel="White" itemValue="White, non-Hispanic" />
@@ -92,12 +96,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                         <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
                                     </p:selectOneMenu>
 
+                                    <h:outputText value="Show Dataset " />
+                                    <p:selectBooleanCheckbox value="#{tableController.showDataset1}" />
+
                                 </h:panelGrid>
 
                             </p:fieldset>
-                        
-                        <br />
-                        <br />
+
+                            <br />
 
                             <p:fieldset legend="Dataset Selection 2" >
                                 <h:panelGrid columns="2" >
@@ -130,12 +136,14 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                         <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
                                     </p:selectOneMenu>
 
+                                    <h:outputText value="Show Dataset " />
+                                    <p:selectBooleanCheckbox value="#{tableController.showDataset2}" />
+
                                 </h:panelGrid>
 
                             </p:fieldset>
-                        
-                        <br />
-                        <br />
+
+                            <br />
 
                             <p:fieldset legend="Dataset Selection 3" >
                                 <h:panelGrid columns="2" >
@@ -169,20 +177,49 @@ Copyright © 2017 Khoa Le. All rights reserved.
                                         <f:selectItem itemLabel="Two or more" itemValue="Two or more races, non-Hispanic" />
                                     </p:selectOneMenu>
 
+                                    <h:outputText value="Show Dataset " />
+                                    <p:selectBooleanCheckbox value="#{tableController.showDataset3}" />
+
                                 </h:panelGrid>
 
                             </p:fieldset>
-                        
-                        <br />
-                        <br />
+                            
+                            <br />
 
+                            <p:commandButton id="submit" value="Create Graph"  action="${tableController.getAPIData()}"
+                                             ajax="false" icon="ui-icon-pencil" />
 
-                            <p:commandButton id="submit" value="Display Graph"  action="${tableController.getAPIData()}"
-                                             ajax="false" icon="ui-icon-calculator" />
+                            <p:commandButton value="About the Data" type="button" onclick="PF('aboutTheDataDlg').show();" icon="ui-icon-info"/>
+
+                            <p:dialog header="About the Data" widgetVar="aboutTheDataDlg" modal="true" height="600" width="500">
+                                <p:fieldset legend="High School Dropout Rates" style="margin-bottom:20px">
+                                    Percentage of 18- to 24-year-olds who have not completed high school by sex and race/ethnicity, 2000–2014.
+                                </p:fieldset>
+
+                                <p:fieldset legend="College Enrollment Rates" style="margin-bottom:20px">
+                                    Percentage of 18- to 24-year-olds enrolled in 2- and 4-year colleges by sex and race/ethnicity, 2000–2014.
+                                </p:fieldset>
+
+                                <p:fieldset legend="College Graduation Rates" style="margin-bottom:20px">
+                                    Percentage of 18- to 24-year-olds who have completed a bachelor’s or higher degree by sex and race/ethnicity, 2000–2014.
+                                </p:fieldset>
+
+                                <p:fieldset legend="Rates of Disconnected Youth" style="margin-bottom:20px">
+                                    Percentage of 18- to 24-year-olds who were neither enrolled in school nor working by sex and race/ethnicity, 2000–2014 (so-called disconnected youth).
+                                </p:fieldset>
+
+                                <p:fieldset legend="Labor Force Participation Rates" style="margin-bottom:20px">
+                                    Labor force participation rates for young adults ages 18–24 by age, sex, and race/ethnicity, 1980–2013 annual averages.
+                                </p:fieldset>
+
+                                <p:fieldset legend="Imprisonment Rates" style="margin-bottom:20px">
+                                    Imprisonment rates of 18- to 24-year-olds sentenced to more than 1 year under the jurisdiction of state correctional authorities per 100,000 by sex and race/ethnicity, 2000–2012.
+                                </p:fieldset>
+                            </p:dialog> 
 
                         </p:panel>
 
-                        <p:panel style="height: 700px">
+                        <p:panel style="height: 750px">
                             <div id="graphWindow" style="height: 700px; width:800px; padding: 10px ">
                                 <c:if test="${tableController.barModel != null}">
                                     <p:chart type="bar" model="#{tableController.barModel}" style="height:600px; width:800px"/>

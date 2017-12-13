@@ -15,23 +15,23 @@ import org.primefaces.model.chart.LineChartSeries;
 public class AreaGraphController implements Serializable {
 
     private LineChartModel areaModel;
-    ArrayList<Double> percentages;
-    ArrayList<Double> percentages2;
-    ArrayList<Double> percentages3;
-    int minYear = 2000;
-    int maxYear = 2014;
-    String gender = "";
-    String gender2 = "";
-    String gender3 = "";
-    String race = "";
-    String race2 = "";
-    String race3 = "";
+    private ArrayList<Double> percentages;
+    private ArrayList<Double> percentages2;
+    private ArrayList<Double> percentages3;
+    private int minYear = 2000;
+    private int maxYear = 2014;
+    private String gender = "";
+    private String gender2 = "";
+    private String gender3 = "";
+    private String race = "";
+    private String race2 = "";
+    private String race3 = "";
 
-    String dataset = "";
-    String dataset2 = "";
-    String dataset3 = "";
+    private String dataset = "";
+    private String dataset2 = "";
+    private String dataset3 = "";
 
-    String title = "";
+    private String title = "";
 
     public String getDataset() {
         return dataset;
@@ -56,8 +56,6 @@ public class AreaGraphController implements Serializable {
     public void setDataset3(String dataset3) {
         this.dataset3 = dataset3;
     }
-    
-    
 
     public String getRace() {
         return race;
@@ -172,49 +170,46 @@ public class AreaGraphController implements Serializable {
         LineChartSeries type2 = new LineChartSeries();
 
         LineChartSeries type3 = new LineChartSeries();
-        
+
         String label1 = dataset + " ";
         String label2 = dataset2 + " ";
         String label3 = dataset3 + " ";
-        
+
         if (gender != null && !gender.equals("")) {
             label1 = label1 + gender;
             if (race != null && !race.equals("")) {
                 label1 = label1 + ", " + race;
             }
-        }
-        else {
+        } else {
             label1 = label1 + race;
         }
-        
+
         if (gender2 != null && !gender2.equals("")) {
             label2 = label2 + gender2;
             if (race2 != null && !race2.equals("")) {
                 label2 = label2 + ", " + race2;
             }
-        }
-        else {
+        } else {
             label2 = label2 + race2;
         }
-        
+
         if (gender3 != null && !gender3.equals("")) {
             label3 = label3 + gender3;
             if (race3 != null && !race3.equals("")) {
                 label3 = label3 + ", " + race3;
             }
-        }
-        else {
+        } else {
             label3 = label3 + race3;
         }
-        
+
         type.setFill(true);
         type.setLabel(label1);
         if (!percentages.isEmpty()) {
             for (int i = minYear; i <= maxYear && (i - minYear) < percentages.size(); i++) {
                 type.set(String.valueOf(i), percentages.get(i - minYear));
             }
+            areaModel.addSeries(type);
         }
-        areaModel.addSeries(type);
 
         type2.setFill(true);
         type2.setLabel(label2);
@@ -222,8 +217,8 @@ public class AreaGraphController implements Serializable {
             for (int i = minYear; i <= maxYear && (i - minYear) < percentages2.size(); i++) {
                 type2.set(String.valueOf(i), percentages2.get(i - minYear));
             }
+            areaModel.addSeries(type2);
         }
-        areaModel.addSeries(type2);
 
         type3.setFill(true);
         type3.setLabel(label3);
@@ -231,15 +226,15 @@ public class AreaGraphController implements Serializable {
             for (int i = minYear; i <= maxYear && (i - minYear) < percentages3.size(); i++) {
                 type3.set(String.valueOf(i), percentages3.get(i - minYear));
             }
+            areaModel.addSeries(type3);
         }
-        areaModel.addSeries(type3);
 
         areaModel.setTitle(title);
         areaModel.setLegendPosition("ne");
         areaModel.setStacked(true);
         areaModel.setShowPointLabels(true);
 
-        Axis xAxis = new CategoryAxis("Years");
+        Axis xAxis = new CategoryAxis("Year");
         areaModel.getAxes().put(AxisType.X, xAxis);
         Axis yAxis = areaModel.getAxis(AxisType.Y);
         yAxis.setLabel("Percentages");

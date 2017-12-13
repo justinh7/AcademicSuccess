@@ -24,26 +24,26 @@ public class BarGraphController implements Serializable {
     private BarChartModel barModel;
     //private HorizontalBarChartModel horizontalBarModel;
 
-    String title = "";
+    private String title = "";
 
-    ArrayList<Double> percentages;
-    ArrayList<Double> percentages2;
-    ArrayList<Double> percentages3;
+    private ArrayList<Double> percentages;
+    private ArrayList<Double> percentages2;
+    private ArrayList<Double> percentages3;
 
-    String gender = "";
-    String gender2 = "";
-    String gender3 = "";
-    
-    String race = "";
-    String race2 = "";
-    String race3 = "";
-    
-    String dataset = "";
-    String dataset2 = "";
-    String dataset3 = "";
+    private String gender = "";
+    private String gender2 = "";
+    private String gender3 = "";
 
-    int minYear = 2000;
-    int maxYear = 2014;
+    private String race = "";
+    private String race2 = "";
+    private String race3 = "";
+
+    private String dataset = "";
+    private String dataset2 = "";
+    private String dataset3 = "";
+
+    private int minYear = 2000;
+    private int maxYear = 2014;
 
     public String getDataset() {
         return dataset;
@@ -69,7 +69,6 @@ public class BarGraphController implements Serializable {
         this.dataset3 = dataset3;
     }
 
-    
     public String getRace() {
         return race;
     }
@@ -93,8 +92,6 @@ public class BarGraphController implements Serializable {
     public void setRace3(String race3) {
         this.race3 = race3;
     }
-    
-    
 
     public ArrayList<Double> getPercentages2() {
         return percentages2;
@@ -193,61 +190,58 @@ public class BarGraphController implements Serializable {
         String label1 = dataset + " ";
         String label2 = dataset2 + " ";
         String label3 = dataset3 + " ";
-        
+
         if (gender != null && !gender.equals("")) {
             label1 = label1 + gender;
             if (race != null && !race.equals("")) {
                 label1 = label1 + ", " + race;
             }
-        }
-        else {
+        } else {
             label1 = label1 + race;
         }
-        
+
         if (gender2 != null && !gender2.equals("")) {
             label2 = label2 + gender2;
             if (race2 != null && !race2.equals("")) {
                 label2 = label2 + ", " + race2;
             }
-        }
-        else {
+        } else {
             label2 = label2 + race2;
         }
-        
+
         if (gender3 != null && !gender3.equals("")) {
             label3 = label3 + gender3;
             if (race3 != null && !race3.equals("")) {
                 label3 = label3 + ", " + race3;
             }
-        }
-        else {
+        } else {
             label3 = label3 + race3;
         }
-        
-        
+
         type.setLabel(label1);
         if (!percentages.isEmpty()) {
             for (int i = minYear; i <= maxYear && (i - minYear) < percentages.size(); i++) {
                 type.set(String.valueOf(i), percentages.get(i - minYear));
             }
+            model.addSeries(type);
         }
-        model.addSeries(type);
+
         type2.setLabel(label2);
         if (!percentages2.isEmpty()) {
 
             for (int i = minYear; i <= maxYear && (i - minYear) < percentages2.size(); i++) {
                 type2.set(String.valueOf(i), percentages2.get(i - minYear));
             }
+            model.addSeries(type2);
         }
-        model.addSeries(type2);
 
         type3.setLabel(label3);
         if (!percentages3.isEmpty()) {
             for (int i = minYear; i <= maxYear && (i - minYear) < percentages3.size(); i++) {
                 type3.set(String.valueOf(i), percentages3.get(i - minYear));
             }
+            model.addSeries(type3);
         }
-        model.addSeries(type3);
 
         return model;
     }

@@ -54,38 +54,101 @@ as long as the user's established HTTP session is alive.
  */
 public class TableController implements Serializable {
 
-    com.mycompany.APIInteraction.APIDataController adc = new APIDataController();
+    private com.mycompany.APIInteraction.APIDataController adc = new APIDataController();
 
-    com.mycompany.APIInteraction.APIDataController adc2 = new APIDataController();
+    private com.mycompany.APIInteraction.APIDataController adc2 = new APIDataController();
 
-    com.mycompany.APIInteraction.APIDataController adc3 = new APIDataController();
+    private com.mycompany.APIInteraction.APIDataController adc3 = new APIDataController();
+
+    private String race = "All";
+    private String sex = "All";
+    private String dataset = "High School Dropout Rates";
+    private boolean showDataset1 = false;
+    private String graphType = "";
+
+    private String sex2 = "All";
+    private String race2 = "All";
+    private String dataset2 = "High School Dropout Rates";
+    private boolean showDataset2 = false;
+
+    private String sex3 = "All";
+    private String race3 = "All";
+    private String dataset3 = "High School Dropout Rates";
+    private boolean showDataset3 = false;
+
+    private int minYear = 2000;
+    private int maxYear = 2014;
+    private String characteristic = "total";
     
-    String race = "All";
-    String sex = "All";
-    String dataset = "High School Dropout Rates";
-    String graphType = "";
+    private String title = "Academic Success Graph";
 
-    String sex2 = "All";
-    String race2 = "All";
-    String dataset2 = "High School Dropout Rates";
-    String sex3 = "All";
-    String race3 = "All";
-    String dataset3 = "High School Dropout Rates";
+    private ArrayList<Double> percentages = new ArrayList<>();
+    private ArrayList<Double> percentages2 = new ArrayList<>();
+    private ArrayList<Double> percentages3 = new ArrayList<>();
+    private BarGraphController BGC = new BarGraphController();
+    private LineGraphController LGC = new LineGraphController();
+    private AreaGraphController AC = new AreaGraphController();
 
-    int minYear = 2000;
-    int maxYear = 2014;
-    String characteristic = "total";
+    private BarChartModel barModel;
+    private LineChartModel lineModel;
+    private LineChartModel areaModel;
 
-    ArrayList<Double> percentages = new ArrayList<>();
-    ArrayList<Double> percentages2 = new ArrayList<>();
-    ArrayList<Double> percentages3 = new ArrayList<>();
-    BarGraphController BGC = new BarGraphController();
-    LineGraphController LGC = new LineGraphController();
-    AreaGraphController AC = new AreaGraphController();
+    public String getTitle() {
+        return title;
+    }
 
-    BarChartModel barModel;
-    LineChartModel lineModel;
-    LineChartModel areaModel;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public ArrayList<Double> getPercentages() {
+        return percentages;
+    }
+
+    public void setPercentages(ArrayList<Double> percentages) {
+        this.percentages = percentages;
+    }
+
+    public ArrayList<Double> getPercentages2() {
+        return percentages2;
+    }
+
+    public void setPercentages2(ArrayList<Double> percentages2) {
+        this.percentages2 = percentages2;
+    }
+
+    public ArrayList<Double> getPercentages3() {
+        return percentages3;
+    }
+
+    public void setPercentages3(ArrayList<Double> percentages3) {
+        this.percentages3 = percentages3;
+    }
+
+    
+    public boolean isShowDataset1() {
+        return showDataset1;
+    }
+
+    public void setShowDataset1(boolean showDataset1) {
+        this.showDataset1 = showDataset1;
+    }
+
+    public boolean isShowDataset2() {
+        return showDataset2;
+    }
+
+    public void setShowDataset2(boolean showDataset2) {
+        this.showDataset2 = showDataset2;
+    }
+
+    public boolean isShowDataset3() {
+        return showDataset3;
+    }
+
+    public void setShowDataset3(boolean showDataset3) {
+        this.showDataset3 = showDataset3;
+    }
 
     public String getSex2() {
         return sex2;
@@ -191,7 +254,7 @@ public class TableController implements Serializable {
         BGC.setGender3(sex3);
         BGC.setRace3(race3);
         BGC.setDataset3(dataset3);
-        BGC.setTitle(dataset + " vs. " + dataset2 + " vs. " + dataset3);
+        BGC.setTitle(title);
         BGC.init();
         barModel = BGC.getBarModel();
 
@@ -212,7 +275,7 @@ public class TableController implements Serializable {
         LGC.setGender3(sex3);
         LGC.setRace3(race3);
         LGC.setDataset3(dataset3);
-        LGC.setTitle(dataset + " vs. " + dataset2 + " vs. " + dataset3);
+        LGC.setTitle(title);
         LGC.init();
         lineModel = LGC.getLineModel1();
     }
@@ -232,7 +295,7 @@ public class TableController implements Serializable {
         AC.setGender3(sex3);
         AC.setRace3(race3);
         AC.setDataset3(dataset3);
-        AC.setTitle(dataset + " vs. " + dataset2 + " vs. " + dataset3);
+        AC.setTitle(title);
         AC.init();
         areaModel = AC.getAreaModel();
     }
@@ -377,24 +440,31 @@ public class TableController implements Serializable {
         percentages.clear();
         percentages2.clear();
         percentages3.clear();
-        
+
         List<BaseRate> data = adc.getBaseRateList();
         List<BaseRate> data2 = adc2.getBaseRateList();
         List<BaseRate> data3 = adc3.getBaseRateList();
-        for (BaseRate i : data) {
+        if (showDataset1) {
+            for (BaseRate i : data) {
 
-            percentages.add(i.getPercentage());
+                percentages.add(i.getPercentage());
+            }
         }
-        for (BaseRate i : data2) {
+        if (showDataset2) {
+            for (BaseRate i : data2) {
 
-            percentages2.add(i.getPercentage());
+                percentages2.add(i.getPercentage());
 
+            }
         }
-        for (BaseRate i : data3) {
+        if (showDataset3) {
+            for (BaseRate i : data3) {
 
-            percentages3.add(i.getPercentage());
+                percentages3.add(i.getPercentage());
 
+            }
         }
+
         selectGraphType();
 
     }

@@ -23,23 +23,23 @@ public class LineGraphController implements Serializable {
 
     private LineChartModel lineModel1;
     //private LineChartModel lineModel2;
-    String title = "";
-    ArrayList<Double> percentages;
-    ArrayList<Double> percentages2;
-    ArrayList<Double> percentages3;
-    int minYear = 2000;
-    int maxYear = 2014;
-    String gender = "";
-    String gender2 = "";
-    String gender3 = "";
+    private String title = "";
+    private ArrayList<Double> percentages;
+    private ArrayList<Double> percentages2;
+    private ArrayList<Double> percentages3;
+    private int minYear = 2000;
+    private int maxYear = 2014;
+    private String gender = "";
+    private String gender2 = "";
+    private String gender3 = "";
 
-    String race = "";
-    String race2 = "";
-    String race3 = "";
+    private String race = "";
+    private String race2 = "";
+    private String race3 = "";
 
-    String dataset = "";
-    String dataset2 = "";
-    String dataset3 = "";
+    private String dataset = "";
+    private String dataset2 = "";
+    private String dataset3 = "";
 
     public String getDataset() {
         return dataset;
@@ -64,8 +64,6 @@ public class LineGraphController implements Serializable {
     public void setDataset3(String dataset3) {
         this.dataset3 = dataset3;
     }
-    
-    
 
     public String getRace() {
         return race;
@@ -186,7 +184,7 @@ public class LineGraphController implements Serializable {
         lineModel1.setTitle(title);
         lineModel1.setLegendPosition("e");
         lineModel1.setShowPointLabels(true);
-        lineModel1.getAxes().put(AxisType.X, new CategoryAxis("Years"));
+        lineModel1.getAxes().put(AxisType.X, new CategoryAxis("Year"));
         Axis yAxis = lineModel1.getAxis(AxisType.Y);
         yAxis.setMin(0);
         yAxis.setMax(100);
@@ -210,45 +208,42 @@ public class LineGraphController implements Serializable {
         String label1 = dataset + " ";
         String label2 = dataset2 + " ";
         String label3 = dataset3 + " ";
-        
+
         if (gender != null && !gender.equals("")) {
             label1 = label1 + gender;
             if (race != null && !race.equals("")) {
                 label1 = label1 + ", " + race;
             }
-        }
-        else {
+        } else {
             label1 = label1 + race;
         }
-        
+
         if (gender2 != null && !gender2.equals("")) {
             label2 = label2 + gender2;
             if (race2 != null && !race2.equals("")) {
                 label2 = label2 + ", " + race2;
             }
-        }
-        else {
+        } else {
             label2 = label2 + race2;
         }
-        
+
         if (gender3 != null && !gender3.equals("")) {
             label3 = label3 + gender3;
             if (race3 != null && !race3.equals("")) {
                 label3 = label3 + ", " + race3;
             }
-        }
-        else {
+        } else {
             label3 = label3 + race3;
         }
-        
+
         LineChartSeries series1 = new LineChartSeries();
         series1.setLabel(label1);
         if (!percentages.isEmpty()) {
             for (int i = minYear; i <= maxYear && (i - minYear) < percentages.size(); i++) {
                 series1.set(String.valueOf(i), percentages.get(i - minYear));
             }
+            model.addSeries(series1);
         }
-        model.addSeries(series1);
 
         LineChartSeries series2 = new LineChartSeries();
         series2.setLabel(label2);
@@ -256,8 +251,8 @@ public class LineGraphController implements Serializable {
             for (int i = minYear; i <= maxYear && (i - minYear) < percentages2.size(); i++) {
                 series2.set(String.valueOf(i), percentages2.get(i - minYear));
             }
+            model.addSeries(series2);
         }
-        model.addSeries(series2);
 
         LineChartSeries series3 = new LineChartSeries();
         series3.setLabel(label3);
