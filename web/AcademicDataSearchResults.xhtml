@@ -30,11 +30,11 @@ Copyright © 2017 Khoa Le. All rights reserved.
                 <h:outputLabel id="form-error-message" class="errorMessages" value="#{apiDataController.statusMessage}"/>
 
                 <h:form id="DataListForm">
-                    <p:panel header="Data Table">
+                    <p:panel header="#{apiDataController.dataType}">
                         <p:dataTable id="datalist" value="#{apiDataController.baseRateList}" var="baseRateList"
                                      paginator="true"
                                      rowKey="#{baseRateList.id}"
-                                     rows="5"
+                                     rows="25"
                                      rowsPerPageTemplate="5,10,15,20,25,30,40,50"
                                      >
 
